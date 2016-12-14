@@ -23,6 +23,7 @@
             android:id="@+id/leftUpImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
             app:layout_row="0"
             app:layout_column="0"
             app:layout_columnWeight="1"
@@ -33,6 +34,7 @@
             android:id="@+id/rightUpImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
             app:layout_row="0"
             app:layout_column="1"
             app:layout_columnWeight="1"
@@ -44,6 +46,7 @@
             android:id="@+id/leftDownImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
             app:layout_row="1"
             app:layout_column="0"
             app:layout_columnWeight="1"
@@ -54,11 +57,18 @@
             android:id="@+id/rightDownImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
             app:layout_row="1"
             app:layout_column="1"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1"/>
     </GridLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:srcCompat="@android:drawable/alert_light_frame"
+        android:id="@+id/mainWinImg" />
 
     <Button
         android:text="input"

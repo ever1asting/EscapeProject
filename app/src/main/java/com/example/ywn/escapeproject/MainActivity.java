@@ -31,7 +31,9 @@ import org.json.JSONTokener;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button btn_click;
+    private Button backBtn;
     private EditText mResultText;
+    private ImageView mainWin;
     private GridLayout scanWin;
     private ImageView leftUpWin;
     private ImageView rightUpWin;
@@ -43,10 +45,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-      //  scanWin = (GridLayout) findViewById(R.id.scanWin);
-     //   int scanWinHeight = scanWin.getHeight();
-    //    int scanWinWidth = scanWin.getWidth();
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.win1);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mainwin);
+        mainWin = (ImageView) findViewById(R.id.mainWinImg);
+        mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
+
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.win1);
         leftUpWin = (ImageView) findViewById(R.id.leftUpImg);
         leftUpWin.setImageDrawable(new RoundImageDrawable(bitmap));
 
@@ -68,17 +71,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mResultText = ((EditText) findViewById(R.id.contentText ));
         mResultText.setFocusable(false);
 
+        backBtn = (Button) findViewById(R.id.backBtn);
+
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=584962eb");
 
         btn_click.setOnClickListener(this);
+        backBtn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.startBtn)
-                btnVoice();
+            btnVoice();
+        else if(v.getId() == R.id.backBtn)
+            backBtnEvent();
     }
 
+    private void backBtnEvent() {
+        mainWin.setVisibility(View.GONE);
+    }
 
 
     //TODO 开始说话：
