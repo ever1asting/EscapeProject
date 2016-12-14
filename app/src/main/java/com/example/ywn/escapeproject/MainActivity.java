@@ -1,5 +1,8 @@
 package com.example.ywn.escapeproject;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.util.Log;
@@ -28,15 +32,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button btn_click;
     private EditText mResultText;
+    private GridLayout scanWin;
     private ImageView leftUpWin;
+    private ImageView rightUpWin;
+    private ImageView leftDownWin;
+    private ImageView rightDownWin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //leftUpWin = (ImageView) findViewById(R.id.leftUpImg);
-    //    leftUpWin.setLayoutParams(new LayoutParams());
+      //  scanWin = (GridLayout) findViewById(R.id.scanWin);
+     //   int scanWinHeight = scanWin.getHeight();
+    //    int scanWinWidth = scanWin.getWidth();
+//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.win1);
+        leftUpWin = (ImageView) findViewById(R.id.leftUpImg);
+        leftUpWin.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.win1));
+
+
+        rightUpWin = (ImageView) findViewById(R.id.rightUpImg);
+        rightUpWin.setImageDrawable(getResources().getDrawable(R.drawable.win2));
+
+        leftDownWin = (ImageView) findViewById(R.id.leftDownImg);
+        leftDownWin.setImageDrawable(getResources().getDrawable(R.drawable.win3));
+
+        rightDownWin = (ImageView) findViewById(R.id.rightDownImg);
+        rightDownWin.setImageDrawable(getResources().getDrawable(R.drawable.win4));
 
 
         btn_click = (Button) findViewById(R.id.startBtn);

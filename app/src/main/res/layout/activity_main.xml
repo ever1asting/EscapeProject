@@ -11,6 +11,55 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.ywn.escapeproject.MainActivity">
 
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="2"
+        android:rowCount="2"
+        android:id="@+id/scanWin">
+
+        <ImageView
+            app:srcCompat="@android:drawable/arrow_down_float"
+            android:id="@+id/leftUpImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_row="0"
+            app:layout_column="0"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1"/>
+
+        <ImageView
+            app:srcCompat="@android:drawable/arrow_down_float"
+            android:id="@+id/rightUpImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_row="0"
+            app:layout_column="1"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1"/>
+
+
+        <ImageView
+            app:srcCompat="@android:drawable/alert_light_frame"
+            android:id="@+id/leftDownImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_row="1"
+            app:layout_column="0"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1"/>
+
+        <ImageView
+            app:srcCompat="@android:drawable/alert_dark_frame"
+            android:id="@+id/rightDownImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_row="1"
+            app:layout_column="1"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1"/>
+    </GridLayout>
+
     <Button
         android:text="input"
         android:layout_width="wrap_content"
