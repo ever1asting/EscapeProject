@@ -46,19 +46,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
       //  scanWin = (GridLayout) findViewById(R.id.scanWin);
      //   int scanWinHeight = scanWin.getHeight();
     //    int scanWinWidth = scanWin.getWidth();
-//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.win1);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.win1);
         leftUpWin = (ImageView) findViewById(R.id.leftUpImg);
-        leftUpWin.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.win1));
+        leftUpWin.setImageDrawable(new RoundImageDrawable(bitmap));
 
 
         rightUpWin = (ImageView) findViewById(R.id.rightUpImg);
-        rightUpWin.setImageDrawable(getResources().getDrawable(R.drawable.win2));
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.win2);
+        rightUpWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win2));
 
         leftDownWin = (ImageView) findViewById(R.id.leftDownImg);
-        leftDownWin.setImageDrawable(getResources().getDrawable(R.drawable.win3));
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.win3);
+        leftDownWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win3));
 
         rightDownWin = (ImageView) findViewById(R.id.rightDownImg);
-        rightDownWin.setImageDrawable(getResources().getDrawable(R.drawable.win4));
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.win4);
+        rightDownWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win4));
 
 
         btn_click = (Button) findViewById(R.id.startBtn);
