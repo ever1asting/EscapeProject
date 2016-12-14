@@ -1,12 +1,15 @@
 package com.example.ywn.escapeproject;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.util.Log;
 
@@ -25,13 +28,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button btn_click;
     private EditText mResultText;
+    private ImageView leftUpWin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //leftUpWin = (ImageView) findViewById(R.id.leftUpImg);
+    //    leftUpWin.setLayoutParams(new LayoutParams());
+
+
         btn_click = (Button) findViewById(R.id.startBtn);
         mResultText = ((EditText) findViewById(R.id.contentText ));
+        mResultText.setFocusable(false);
 
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=584962eb");
 
@@ -51,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         RecognizerDialog dialog = new RecognizerDialog(this,null);
         dialog.setParameter(SpeechConstant.LANGUAGE, "en_us");
         dialog.setParameter(SpeechConstant.ACCENT, "mandarin");
+        mResultText.setText("");
 
         dialog.setListener(new RecognizerDialogListener() {
             @Override
@@ -71,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String text = parseIatResult(results.getResultString());
         // 自动填写地址
         mResultText.append(text);
+
     }
 
     public static String parseIatResult(String json) {
@@ -91,4 +103,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return ret.toString();
     }
+
+
 }
