@@ -40,43 +40,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView leftDownWin;
     private ImageView rightDownWin;
 
+    private int mainImgPath;
+    private int leftUpImgPath, leftDownImgPath, rightUpImgPath, rightDownImgPath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mainwin);
+        // init image path
+        mainImgPath = R.drawable.mainwin;
+        leftUpImgPath = R.drawable.win1;
+        rightUpImgPath = R.drawable.win2;
+        leftDownImgPath = R.drawable.win3;
+        rightDownImgPath = R.drawable.win4;
+
+        // init image for scan windows
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath);
         mainWin = (ImageView) findViewById(R.id.mainWinImg);
         mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
 
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.win1);
+        bitmap = BitmapFactory.decodeResource(getResources(), leftUpImgPath);
         leftUpWin = (ImageView) findViewById(R.id.leftUpImg);
         leftUpWin.setImageDrawable(new RoundImageDrawable(bitmap));
 
-
         rightUpWin = (ImageView) findViewById(R.id.rightUpImg);
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.win2);
+        bitmap = BitmapFactory.decodeResource(getResources(), rightUpImgPath);
         rightUpWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win2));
 
         leftDownWin = (ImageView) findViewById(R.id.leftDownImg);
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.win3);
+        bitmap = BitmapFactory.decodeResource(getResources(), leftDownImgPath);
         leftDownWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win3));
 
         rightDownWin = (ImageView) findViewById(R.id.rightDownImg);
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.win4);
+        bitmap = BitmapFactory.decodeResource(getResources(), rightDownImgPath);
         rightDownWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win4));
 
-
+        // button and textline init
         btn_click = (Button) findViewById(R.id.startBtn);
         mResultText = ((EditText) findViewById(R.id.contentText ));
         mResultText.setFocusable(false);
-
         backBtn = (Button) findViewById(R.id.backBtn);
 
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=584962eb");
 
         btn_click.setOnClickListener(this);
         backBtn.setOnClickListener(this);
+        leftUpWin.setOnClickListener(this);
+        leftDownWin.setOnClickListener(this);
+        rightUpWin.setOnClickListener(this);
+        rightDownWin.setOnClickListener(this);
     }
 
     @Override
@@ -85,6 +98,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             btnVoice();
         else if(v.getId() == R.id.backBtn)
             backBtnEvent();
+        else
+            setMainWin(v.getId());
+    }
+
+    private void setMainWin(int id) {
+        if(id == R.id.leftUpImg)
+            mainImgPath = leftUpImgPath;
+        else if(id == R.id.rightUpImg)
+            mainImgPath = rightUpImgPath;
+        else if(id == R.id.leftDownImg)
+            mainImgPath = leftDownImgPath;
+        else if(id == R.id.rightDownImg)
+            mainImgPath = rightDownImgPath;
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath);
+        mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
+        mainWin.setVisibility(View.VISIBLE);
     }
 
     private void backBtnEvent() {
