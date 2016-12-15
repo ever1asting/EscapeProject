@@ -45,15 +45,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private int mainImgPath;
     private int leftUpImgPath, leftDownImgPath, rightUpImgPath, rightDownImgPath;
 
+    private FiniteStateMachine fsm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //隐藏标题栏
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         //隐藏状态栏
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
+        // FSM init
+        fsm = new FiniteStateMachine();
+        fsm.init();
 
         // init image path
         mainImgPath = R.drawable.mainwin;
@@ -153,8 +158,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
     //回调结果：
     private void printResult(RecognizerResult results) {
         String text = parseIatResult(results.getResultString());
-        // 自动填写地址
-        mResultText.append(text);
+        if(!text.equals(".")) {
+            // 自动填写地址
+            mResultText.append(text);
+
+            //update fsm
+            String fsmRet = fsm.update(text);
+            mResultText.append(fsmRet);
+        }
 
     }
 
