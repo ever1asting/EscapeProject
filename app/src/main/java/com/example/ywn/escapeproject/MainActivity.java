@@ -60,6 +60,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         fsm = new FiniteStateMachine();
         fsm.init();
 
+        Log.v("debug", "init fsm");
+
         // init image path
         mainImgPath = R.drawable.mainwin;
         leftUpImgPath = R.drawable.win1;
@@ -161,6 +163,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if(!text.equals(".")) {
             // 自动填写地址
             mResultText.append(text);
+
+            Log.v("debug", "prepare to get fsm str");
 
             //update fsm
             String fsmRet = fsm.update(text);
