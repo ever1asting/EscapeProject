@@ -33,7 +33,7 @@ public class FiniteStateMachine {
                     /* state 7 */
                     {"open door", "Ok, next room"},
                     /* state 8 */
-                    {}
+                    {"open door", "Ok, back to ROOM 2"}
             },
             /****************  ROOM 2  ******************/
             {
@@ -121,9 +121,13 @@ public class FiniteStateMachine {
                                     roomNum = 2;
                                     stateNum = 1;
                                 }
+                                else if (stateNum == 8) {// back
+                                    roomNum = 2;
+                                    stateNum = preStateNum;
+                                }
                                 else
                                     ++stateNum;
-                                return /*" state = " + stateNum + ", " + */ " " + script[roomIndex][stateIndex][j + 1];
+                                return " state = " + stateNum + ", " +  " " + script[roomIndex][stateIndex][j + 1];
                             }
                         }
                     }
@@ -166,7 +170,7 @@ public class FiniteStateMachine {
                             }
                             else if (stateNum == 3 || stateNum == 4 || stateNum == 5) {
                                 switch (j / 2) {
-                                    case 0: roomNum = 1; stateNum = 8; preStateNum = stateNum; break;
+                                    case 0: roomNum = 1; preStateNum = stateNum; stateNum = 8;  break;
                                     case 3: stateNum = 6; break; // BE
                                     case 4:
                                         roomNum = (stateNum == 5)? 4: 3;
@@ -176,7 +180,7 @@ public class FiniteStateMachine {
                                 }
                             }
 
-                            return /*" state = " + stateNum + ", " + */ " " + script[roomIndex][stateIndex][j + 1];
+                            return " state = " + stateNum + ", " +  " " + script[roomIndex][stateIndex][j + 1];
                         }
                     }
                 }
@@ -222,7 +226,7 @@ public class FiniteStateMachine {
         }
 
 
-        return "\n update : " /*+ " state = " + stateNum + ", " */+ retStr;
+        return "\n update : " + " state = " + stateNum + ", " + retStr;
     }
 
 }
