@@ -107,4 +107,13 @@
         android:layout_width="wrap_content"
         android:textAlignment="viewStart" />
 
+    <Button
+        android:text="Restart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/startBtn"
+        android:layout_alignStart="@+id/startBtn"
+        android:id="@+id/rstBtn" />
+
 </RelativeLayout>
