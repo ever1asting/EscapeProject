@@ -34,6 +34,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private Button btn_click;
     private Button backBtn;
+    private Button rstBtn;
     private EditText mResultText;
     private ImageView mainWin;
     private GridLayout scanWin;
@@ -95,11 +96,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mResultText = ((EditText) findViewById(R.id.contentText ));
         mResultText.setFocusable(false);
         backBtn = (Button) findViewById(R.id.backBtn);
+        rstBtn = (Button) findViewById(R.id.rstBtn);
 
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=584962eb");
 
         btn_click.setOnClickListener(this);
         backBtn.setOnClickListener(this);
+        rstBtn.setOnClickListener(this);
         leftUpWin.setOnClickListener(this);
         leftDownWin.setOnClickListener(this);
         rightUpWin.setOnClickListener(this);
@@ -112,6 +115,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
             btnVoice();
         else if(v.getId() == R.id.backBtn)
             backBtnEvent();
+        else if(v.getId() == R.id.rstBtn) {
+            fsm.init();
+            mResultText.setText("Restart.");
+        }
         else
             setMainWin(v.getId());
     }

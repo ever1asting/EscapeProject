@@ -89,7 +89,7 @@ public class FiniteStateMachine {
     private int preStateNum;
 
     public void init() {
-        roomNum = 1;
+        roomNum = 2;
         stateNum = 1;
     }
 
@@ -171,6 +171,10 @@ public class FiniteStateMachine {
                             else if (stateNum == 3 || stateNum == 4 || stateNum == 5) {
                                 switch (j / 2) {
                                     case 0: roomNum = 1; preStateNum = stateNum; stateNum = 8;  break;
+                                    case 2:
+                                        if(stateNum == 4)
+                                            stateNum = 5;
+                                        break;
                                     case 3: stateNum = 6; break; // BE
                                     case 4:
                                         roomNum = (stateNum == 5)? 4: 3;
