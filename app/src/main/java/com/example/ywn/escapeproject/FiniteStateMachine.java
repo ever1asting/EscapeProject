@@ -62,12 +62,18 @@ public class FiniteStateMachine {
                     "light", "Light comes from the skylight, but I can not access to the skylight. A ladder may help.",
                     "body", "It is in the corride now. We had used it to attract the zombie successfully.",
                     "open+three open+third door+three door+third", "BAD END: The girl was attacked by the zombie.",
-                    "open+two open+second door+two door+second", "Ok, a new room. We can call it ROOM 4.",
+                    "open+two open+second door+two door+second", "Ok, a new room. We can call it ROOM 3.",
                     },
                     /* state 6 */
-                    {} // BAD END
+                    {},// BAD END
+                    /* state 7 */
+                    {"open+one open+first door+one door+first", "Ok, I went back to ROOM 1",
+                     "light skylight", "(Climbing the ladder...) Oh, a new room, let us call it ROOM 4",
+                     "body", "It is in the corride now. We had used it to attract the zombie successfully.",
+                     "open+three open+third door+three door+third", "BAD END: The girl was attacked by the zombie.",
+                     "open+two open+second door+two door+second", "Back to ROOM 3."}
             },
-            /***********  ROOM 3 / Corridor  ************/
+            /***********  Corridor  ************/
             {
                     {},
                     /* state 1 */
@@ -77,11 +83,58 @@ public class FiniteStateMachine {
                     "open+three open+third door+three door+third", "I think we can get some ideas in ROOM 2."},
 
             },
+            /****************  ROOM 3  ******************/
+            {
+                    {},
+                    /* state 1 */
+                    {},
+                    /* state 2 */
+                    {"open+four open+fourth door+four door+fourth", "BAD END: The girl was attacked by the zombie.",
+                     "open+two open+second door+two door+second", "Back to ROOM 2",
+                    "ladder", "Using this ladder, maybe I can access to the skylight in ROOM 2."},
+                    /* state 3 */
+                    {"open+four open+fourth door+four door+fourth", "BAD END: The girl was attacked by the zombie.",
+                    "open+two open+second door+two door+second", "Come into ROOM 2. I have put the ladder here and now I can access to the skylight.",
+                     "ladder", "I have put it in ROOM 2 in order to access to the skylight."}
+            },
             /****************  ROOM 4  ******************/
             {
-
+                    {},
+                    /* state 1 */
+                    {},
+                    /* state 2 */
+                    {"hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
+                    "mirror", "A dirty mirror here. Can see anything in it before clean it.",
+                    "down downstairs", "Back to ROOM 2"},
+                    /* state 3 */
+                    {"hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
+                    "mirror", "A dirty mirror here. Can see anything in it before clean it.",
+                    "down downstairs", "Back to ROOM 2",
+                    "escape leave", "BAD END. Single escape."},
+                    /* state 4 */
+                    {"hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
+                    "mirror clean", "Clean it? Um... Ok",
+                     "down downstairs", "Back to ROOM 2",
+                     "escape leave", "BAD END. Single escape."},
+                    /* state 5 */
+                    {"hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
+                    "mirror clean", "I had clean it.",
+                    "down downstairs", "Back to ROOM 2",
+                    "escape leave", "BAD END. Single escape.",
+                    "curtain curtains", "Happy End."},
+                    /* state 6 */
+                    {},
+                    /* state 7 */
+                    {},
+                    /* state 8 */
+                    {"hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
+                    "mirror clean", "Clean it? Um... Ok",
+                     "down downstairs", "Back to ROOM 2"},
+                    /* state 9 */
+                    {"hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
+                    "mirror clean", "I had clean it",
+                    "down downstairs", "Back to ROOM 2"}
             }
-
     };
 
     private int roomNum;
@@ -91,6 +144,7 @@ public class FiniteStateMachine {
     private int preStateNum;
     private int preReact;
 
+    private int preStateOfRoom4;
 
     public int[] getState() {
         int[] state = new int[5];
@@ -104,7 +158,7 @@ public class FiniteStateMachine {
 
     public void init() {
         /* test ROOM 2 */
-        roomNum = 2;
+        roomNum = 1;
         stateNum = 1;
     }
 
@@ -113,6 +167,7 @@ public class FiniteStateMachine {
         String[] vocab = text.split(" ");
         int roomIndex, stateIndex;
 
+        /* ROOM 1 */
         if(roomNum == 1) {
             roomIndex = 1;
 
@@ -161,6 +216,7 @@ public class FiniteStateMachine {
                 retStr = "Sorry, I did not catch what you said.";
             }
         }
+        /* ROOM 2 */
         else if (roomNum == 2) {
             roomIndex = 2;
             if(stateNum == 1) {
@@ -223,6 +279,20 @@ public class FiniteStateMachine {
                                     default: break;
                                 }
                             }
+                            else if(stateNum == 7) {
+                                switch (j / 2) {
+                                    case 0: roomNum = 1; preStateNum = stateNum; stateNum = 8;  break;
+                                    case 1:
+                                        roomNum = 5;
+                                        stateNum = preStateOfRoom4;
+                                    case 3: stateNum = 6; break; // BE
+                                    case 4:
+                                        roomNum = 4;
+                                        stateNum = 3;
+                                        break;
+                                    default: break;
+                                }
+                            }
 
                             return " state = " + stateNum + ", " +  " " + script[roomIndex][stateIndex][j + 1];
                         }
@@ -231,6 +301,7 @@ public class FiniteStateMachine {
                 retStr = "Sorry, I did not catch what you said.";
             }
         }
+        /* Corridor */
         else if(roomNum == 3) {
             roomIndex = 3;
 
@@ -280,8 +351,136 @@ public class FiniteStateMachine {
                 retStr = "Sorry, I did not catch what you said.";
             }
         }
+        /* ROOM 3 */
         else if (roomNum == 4) {
+            roomIndex = 4;
+            if(stateNum == 1) {
+                //set pre state
+                preRoomNum = 4;
+                preStateNum = 1;
+                preReact = 1;
 
+                stateNum = 2;
+                retStr = "ROOM 3, a ladder here";
+            }
+            else{
+                stateIndex = stateNum;
+
+                //set pre state
+                preRoomNum = 4;
+                preStateNum = stateNum;
+                preReact = -1;
+
+                for(int j = 0; j < script[roomIndex][stateIndex].length; j += 2) {
+                    String[] keyword = script[roomIndex][stateIndex][j].split(" ");
+                    for(int k = 0; k < keyword.length; ++k) {
+                        String[] combo = keyword[k].split("\\+");
+                        boolean isCompitable = true;
+                        for(int c = 0; c < combo.length; ++c) {
+                            boolean mark = false;
+                            for(int i = 0; i < vocab.length; ++i) {
+                                if(vocab[i].equalsIgnoreCase(combo[c])) {
+                                    mark = true;
+                                    break;
+                                }
+                            }
+                            if(!mark) {
+                                isCompitable = false;
+                                break;
+                            }
+                        }
+                        if(isCompitable) { // change states
+                            // set pre state
+                            preReact = j + 1;
+
+                            switch (j / 2) {
+                                case 0: roomNum = 2; stateNum = 6; break; // BE
+                                case 1:
+                                    roomNum = 2;
+                                    stateNum = (stateNum == 2)? 5 : 7;
+                                    break;
+                                default: break;
+                            }
+
+                            return " state = " + stateNum + ", " +  " " + script[roomIndex][stateIndex][j + 1];
+                        }
+                    }
+                }
+                retStr = "Sorry, I did not catch what you said.";
+            }
+        }
+        /* ROOM 4 */
+        else if(roomNum == 5) {
+            roomIndex = 5;
+            if(stateNum == 1) {
+                //set pre state
+                preRoomNum = 5;
+                preStateNum = 1;
+                preReact = 1;
+
+                stateNum = 2;
+                retStr = "ROOM 4, girl:\"nothing here\"";
+            }
+            else{
+                stateIndex = stateNum;
+
+                //set pre state
+                preRoomNum = 5;
+                preStateNum = stateNum;
+                preReact = -1;
+
+                for(int j = 0; j < script[roomIndex][stateIndex].length; j += 2) {
+                    String[] keyword = script[roomIndex][stateIndex][j].split(" ");
+                    for(int k = 0; k < keyword.length; ++k) {
+                        String[] combo = keyword[k].split("\\+");
+                        boolean isCompitable = true;
+                        for(int c = 0; c < combo.length; ++c) {
+                            boolean mark = false;
+                            for(int i = 0; i < vocab.length; ++i) {
+                                if(vocab[i].equalsIgnoreCase(combo[c])) {
+                                    mark = true;
+                                    break;
+                                }
+                            }
+                            if(!mark) {
+                                isCompitable = false;
+                                break;
+                            }
+                        }
+                        if(isCompitable) { // change states
+                            // set pre state
+                            preReact = j + 1;
+
+                            if(stateNum == 2) {
+                                switch (j / 2) {
+                                    case 0:
+                                        if(stateNum == 2)
+                                            stateNum = 3;
+                                        else if(stateNum == 8)
+                                            stateNum = 4;
+                                        else if(stateNum == 9)
+                                            stateNum = 5;
+                                        break;
+                                    case 1:
+                                        if(stateNum == 2)
+                                            stateNum = 8;
+                                        else if(stateNum == 3 || stateNum == 4 || stateNum == 8)
+                                            ++stateNum;
+                                        break;
+                                    case 2: preStateOfRoom4 = stateNum; roomNum = 2; stateNum = 7; break;
+                                    case 3: stateNum = 7; break; // BE
+                                    case 4: stateNum = 6; break; // HE
+                                    default: break;
+                                }
+                            }
+
+
+                            return " state = " + stateNum + ", " +  " " + script[roomIndex][stateIndex][j + 1];
+                        }
+                    }
+                }
+                retStr = "Sorry, I did not catch what you said.";
+            }
         }
 
 
