@@ -8,9 +8,9 @@ import android.util.Log;
 
 public class FiniteStateMachine {
 
-    private static final int MaxRoom = 4;
-    private static final int MaxState = 20;
-    private static final int MaxRet = 20;
+//    private static final int MaxRoom = 4;
+//    private static final int MaxState = 20;
+//    private static final int MaxRet = 20;
 
     private final String[][][] script = {
             {},
@@ -86,9 +86,24 @@ public class FiniteStateMachine {
 
     private int roomNum;
     private int stateNum;
+
+    private int preRoomNum;
     private int preStateNum;
+    private int preReact;
+
+
+    public int[] getState() {
+        int[] state = new int[5];
+        state[0] = roomNum;
+        state[1] = stateNum;
+        state[2] = preRoomNum;
+        state[3] = preRoomNum;
+        state[4] = preReact;
+        return state;
+    }
 
     public void init() {
+        /* test ROOM 2 */
         roomNum = 2;
         stateNum = 1;
     }
@@ -104,16 +119,28 @@ public class FiniteStateMachine {
             Log.v("", "room num = 1");
 
             if(stateNum == 1) { // init state, just return settings and hints
+                //set pre state
+                preRoomNum = 1;
+                preStateNum = 1;
+                preReact = 1;
+
                 stateNum = 2;
                 retStr = "Settings. I can hardly see anything. Help me leave this room.";
             }
             else {
+                // set pre state
+                preRoomNum = 1;
+                preStateNum = stateNum;
+                preReact = -1;
+
                 stateIndex = stateNum;
                 for(int i = 0; i < vocab.length; ++i)
                     for(int j = 0; j < script[roomIndex][stateIndex].length; j += 2) {
                         String[] keyword = script[roomIndex][stateIndex][j].split(" ");
                         for(int k = 0; k < keyword.length; ++k) {
                             if(vocab[i].equalsIgnoreCase(keyword[k])) {
+                                preReact = j + 1;
+
                                 if(stateNum == 3 && j == 0) {
                                     // wrong but allow route, do not modify state
                                 }
@@ -137,11 +164,21 @@ public class FiniteStateMachine {
         else if (roomNum == 2) {
             roomIndex = 2;
             if(stateNum == 1) {
+                //set pre state
+                preRoomNum = 2;
+                preStateNum = 1;
+                preReact = 1;
+
                 stateNum = 2;
                 retStr = "Seems a new room, light, body and 3 doors here.";
             }
             else{
                 stateIndex = stateNum;
+
+                //set pre state
+                preRoomNum = 2;
+                preStateNum = stateNum;
+                preReact = -1;
 
                 for(int j = 0; j < script[roomIndex][stateIndex].length; j += 2) {
                     String[] keyword = script[roomIndex][stateIndex][j].split(" ");
@@ -162,6 +199,9 @@ public class FiniteStateMachine {
                             }
                         }
                         if(isCompitable) { // change states
+                            // set pre state
+                            preReact = j + 1;
+
                             if(stateNum == 2) {
                                 switch (j / 2) {
                                     case 0: stateNum = 3; break;
@@ -195,10 +235,20 @@ public class FiniteStateMachine {
             roomIndex = 3;
 
             if (stateNum == 1) {
+                //set pre state
+                preRoomNum = 3;
+                preStateNum = 1;
+                preReact = 1;
+
                 stateNum = 2;
                 retStr = "Corride. Here are 2 doors in total.";
             } else if (stateNum == 2) {
                 stateIndex = stateNum;
+
+                //set pre state
+                preRoomNum = 3;
+                preStateNum = stateNum;
+                preReact = -1;
 
                 for (int j = 0; j < script[roomIndex][stateIndex].length; j += 2) {
                     String[] keyword = script[roomIndex][stateIndex][j].split(" ");
@@ -219,6 +269,8 @@ public class FiniteStateMachine {
                             }
                         }
                         if (isCompitable) { // change states
+                            preReact = j + 1;
+
                             roomNum = 2;
                             stateNum = (j == 0) ? 6 : 4; // BE / back to 2-4
                             return /*" state = " + stateNum + ", " + */ " " + script[roomIndex][stateIndex][j + 1];
@@ -227,6 +279,9 @@ public class FiniteStateMachine {
                 }
                 retStr = "Sorry, I did not catch what you said.";
             }
+        }
+        else if (roomNum == 4) {
+
         }
 
 
