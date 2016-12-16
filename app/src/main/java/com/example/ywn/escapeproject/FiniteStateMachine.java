@@ -94,10 +94,47 @@ public class FiniteStateMachine {
                     "ladder", "Using this ladder, maybe I can access to the skylight in ROOM 2."},
                     /* state 3 */
                     {"open+four open+fourth door+four door+fourth", "BAD END: The girl was attacked by the zombie.",
-                    "open+two open+second door+two door+second", "Come into ROOM 2. Put the ladder here and now I can access to the skylight.",
-                     "ladder", "Shall I go to ROOM 2 and use this ladder to access to the skylight in ROOM 2 ?"}
+                    "open+two open+second door+two door+second", "Come into ROOM 2. I have put the ladder here and now I can access to the skylight.",
+                     "ladder", "I have put it in ROOM 2 in order to access to the skylight."}
+            },
+            /****************  ROOM 4  ******************/
+            {
+                    {},
+                    /* state 1 */
+                    {},
+                    /* state 2 */
+                    {"hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
+                    "mirror", "A dirty mirror here. Can see anything in it before clean it.",
+                    "down downstairs", "Back to ROOM 2"},
+                    /* state 3 */
+                    {"hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
+                    "mirror", "A dirty mirror here. Can see anything in it before clean it.",
+                    "down downstairs", "Back to ROOM 2",
+                    "escape leave", "BAD END. Single escape."},
+                    /* state 4 */
+                    {"hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
+                    "mirror clean", "Clean it? Um... Ok",
+                     "down downstairs", "Back to ROOM 2",
+                     "escape leave", "BAD END. Single escape."},
+                    /* state 5 */
+                    {"hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
+                    "mirror clean", "I had clean it.",
+                    "down downstairs", "Back to ROOM 2",
+                    "escape leave", "BAD END. Single escape.",
+                    "curtain curtains", "Happy End."},
+                    /* state 6 */
+                    {},
+                    /* state 7 */
+                    {},
+                    /* state 8 */
+                    {"hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
+                    "mirror clean", "Clean it? Um... Ok",
+                     "down downstairs", "Back to ROOM 2"},
+                    /* state 9 */
+                    {"hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
+                    "mirror clean", "I had clean it",
+                    "down downstairs", "Back to ROOM 2"}
             }
-
     };
 
     private int roomNum;
@@ -107,6 +144,7 @@ public class FiniteStateMachine {
     private int preStateNum;
     private int preReact;
 
+    private int preStateOfRoom4;
 
     public int[] getState() {
         int[] state = new int[5];
@@ -120,7 +158,7 @@ public class FiniteStateMachine {
 
     public void init() {
         /* test ROOM 2 */
-        roomNum = 2;
+        roomNum = 1;
         stateNum = 1;
     }
 
@@ -246,7 +284,7 @@ public class FiniteStateMachine {
                                     case 0: roomNum = 1; preStateNum = stateNum; stateNum = 8;  break;
                                     case 1:
                                         roomNum = 5;
-                                        stateNum = 1;
+                                        stateNum = preStateOfRoom4;
                                     case 3: stateNum = 6; break; // BE
                                     case 4:
                                         roomNum = 4;
@@ -413,14 +451,29 @@ public class FiniteStateMachine {
                             // set pre state
                             preReact = j + 1;
 
-                            switch (j / 2) {
-                                case 0: roomNum = 2; stateNum = 6; break; // BE
-                                case 1:
-                                    roomNum = 2;
-                                    stateNum = (stateNum == 2)? 5 : 7;
-                                    break;
-                                default: break;
+                            if(stateNum == 2) {
+                                switch (j / 2) {
+                                    case 0:
+                                        if(stateNum == 2)
+                                            stateNum = 3;
+                                        else if(stateNum == 8)
+                                            stateNum = 4;
+                                        else if(stateNum == 9)
+                                            stateNum = 5;
+                                        break;
+                                    case 1:
+                                        if(stateNum == 2)
+                                            stateNum = 8;
+                                        else if(stateNum == 3 || stateNum == 4 || stateNum == 8)
+                                            ++stateNum;
+                                        break;
+                                    case 2: preStateOfRoom4 = stateNum; roomNum = 2; stateNum = 7; break;
+                                    case 3: stateNum = 7; break; // BE
+                                    case 4: stateNum = 6; break; // HE
+                                    default: break;
+                                }
                             }
+
 
                             return " state = " + stateNum + ", " +  " " + script[roomIndex][stateIndex][j + 1];
                         }
