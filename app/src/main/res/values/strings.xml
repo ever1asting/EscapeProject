@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">EscapeProject</string>
+
+        <drawable name="darkgray">#808080</drawable>
+        <drawable name="white">#FFFFFF</drawable>
+        <drawable name="black">#000000 </drawable>
+        <drawable name="blue">#0000FF</drawable>
+        <drawable name="lightred">#90FF0000</drawable>
+        <drawable name="lightgray">#90505050</drawable>
+
+        <string name="action_settings">Settings</string>
+        <string name="hello_world">Hello world!</string>
+        <string name="SD">DS卡</string>
+        <string name="RAM">RAM内存</string>
+
 </resources>

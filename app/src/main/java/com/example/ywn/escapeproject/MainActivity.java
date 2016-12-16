@@ -1,5 +1,6 @@
 package com.example.ywn.escapeproject;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,57 +30,110 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener {
 
     private Button btn_click;
+    private Button backBtn;
     private EditText mResultText;
+    private ImageView mainWin;
     private GridLayout scanWin;
     private ImageView leftUpWin;
     private ImageView rightUpWin;
     private ImageView leftDownWin;
     private ImageView rightDownWin;
 
+    private int mainImgPath;
+    private int leftUpImgPath, leftDownImgPath, rightUpImgPath, rightDownImgPath;
+
+    private FiniteStateMachine fsm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //隐藏标题栏
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //隐藏状态栏
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-      //  scanWin = (GridLayout) findViewById(R.id.scanWin);
-     //   int scanWinHeight = scanWin.getHeight();
-    //    int scanWinWidth = scanWin.getWidth();
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.win1);
+        // FSM init
+        fsm = new FiniteStateMachine();
+        fsm.init();
+
+        Log.v("debug", "init fsm");
+
+        // init image path
+        mainImgPath = R.drawable.mainwin;
+        leftUpImgPath = R.drawable.win1;
+        rightUpImgPath = R.drawable.win2;
+        leftDownImgPath = R.drawable.win3;
+        rightDownImgPath = R.drawable.win4;
+
+        // init image for scan windows
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath);
+        mainWin = (ImageView) findViewById(R.id.mainWinImg);
+        mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
+
+        bitmap = BitmapFactory.decodeResource(getResources(), leftUpImgPath);
         leftUpWin = (ImageView) findViewById(R.id.leftUpImg);
         leftUpWin.setImageDrawable(new RoundImageDrawable(bitmap));
 
-
         rightUpWin = (ImageView) findViewById(R.id.rightUpImg);
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.win2);
+        bitmap = BitmapFactory.decodeResource(getResources(), rightUpImgPath);
         rightUpWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win2));
 
         leftDownWin = (ImageView) findViewById(R.id.leftDownImg);
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.win3);
+        bitmap = BitmapFactory.decodeResource(getResources(), leftDownImgPath);
         leftDownWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win3));
 
         rightDownWin = (ImageView) findViewById(R.id.rightDownImg);
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.win4);
+        bitmap = BitmapFactory.decodeResource(getResources(), rightDownImgPath);
         rightDownWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win4));
 
-
+        // button and textline init
         btn_click = (Button) findViewById(R.id.startBtn);
         mResultText = ((EditText) findViewById(R.id.contentText ));
         mResultText.setFocusable(false);
+        backBtn = (Button) findViewById(R.id.backBtn);
 
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=584962eb");
 
         btn_click.setOnClickListener(this);
+        backBtn.setOnClickListener(this);
+        leftUpWin.setOnClickListener(this);
+        leftDownWin.setOnClickListener(this);
+        rightUpWin.setOnClickListener(this);
+        rightDownWin.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.startBtn)
-                btnVoice();
+            btnVoice();
+        else if(v.getId() == R.id.backBtn)
+            backBtnEvent();
+        else
+            setMainWin(v.getId());
     }
 
+    private void setMainWin(int id) {
+        if(id == R.id.leftUpImg)
+            mainImgPath = leftUpImgPath;
+        else if(id == R.id.rightUpImg)
+            mainImgPath = rightUpImgPath;
+        else if(id == R.id.leftDownImg)
+            mainImgPath = leftDownImgPath;
+        else if(id == R.id.rightDownImg)
+            mainImgPath = rightDownImgPath;
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath);
+        mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
+        mainWin.setVisibility(View.VISIBLE);
+    }
+
+    private void backBtnEvent() {
+        mainWin.setVisibility(View.GONE);
+    }
 
 
     //TODO 开始说话：
@@ -105,8 +160,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //回调结果：
     private void printResult(RecognizerResult results) {
         String text = parseIatResult(results.getResultString());
-        // 自动填写地址
-        mResultText.append(text);
+        if(!text.equals(".")) {
+            // 自动填写地址
+            mResultText.append(text);
+
+            Log.v("debug", "prepare to get fsm str");
+
+            //update fsm
+            String fsmRet = fsm.update(text);
+            mResultText.append(fsmRet);
+        }
 
     }
 
