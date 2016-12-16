@@ -71,25 +71,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         rightDownImgPath = R.drawable.win4;
 
         // init image for scan windows
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath);
-        mainWin = (ImageView) findViewById(R.id.mainWinImg);
-        mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
-
-        bitmap = BitmapFactory.decodeResource(getResources(), leftUpImgPath);
-        leftUpWin = (ImageView) findViewById(R.id.leftUpImg);
-        leftUpWin.setImageDrawable(new RoundImageDrawable(bitmap));
-
-        rightUpWin = (ImageView) findViewById(R.id.rightUpImg);
-        bitmap = BitmapFactory.decodeResource(getResources(), rightUpImgPath);
-        rightUpWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win2));
-
-        leftDownWin = (ImageView) findViewById(R.id.leftDownImg);
-        bitmap = BitmapFactory.decodeResource(getResources(), leftDownImgPath);
-        leftDownWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win3));
-
-        rightDownWin = (ImageView) findViewById(R.id.rightDownImg);
-        bitmap = BitmapFactory.decodeResource(getResources(), rightDownImgPath);
-        rightDownWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win4));
+        imgInit();
 
         // button and textline init
         btn_click = (Button) findViewById(R.id.startBtn);
@@ -109,6 +91,28 @@ public class MainActivity extends Activity implements View.OnClickListener {
         rightDownWin.setOnClickListener(this);
     }
 
+    private void imgInit() {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath);
+        mainWin = (ImageView) findViewById(R.id.mainWinImg);
+        mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
+
+        bitmap = BitmapFactory.decodeResource(getResources(), leftUpImgPath);
+        leftUpWin = (ImageView) findViewById(R.id.leftUpImg);
+        leftUpWin.setImageDrawable(new RoundImageDrawable(bitmap));
+
+        rightUpWin = (ImageView) findViewById(R.id.rightUpImg);
+        bitmap = BitmapFactory.decodeResource(getResources(), rightUpImgPath);
+        rightUpWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win2));
+
+        leftDownWin = (ImageView) findViewById(R.id.leftDownImg);
+        bitmap = BitmapFactory.decodeResource(getResources(), leftDownImgPath);
+        leftDownWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win3));
+
+        rightDownWin = (ImageView) findViewById(R.id.rightDownImg);
+        bitmap = BitmapFactory.decodeResource(getResources(), rightDownImgPath);
+        rightDownWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win4));
+    }
+
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.startBtn)
@@ -118,6 +122,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         else if(v.getId() == R.id.rstBtn) {
             fsm.init();
             mResultText.setText("Restart.");
+            imgInit();
         }
         else
             setMainWin(v.getId());
@@ -140,6 +145,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private void backBtnEvent() {
         mainWin.setVisibility(View.GONE);
+
     }
 
 
@@ -176,6 +182,37 @@ public class MainActivity extends Activity implements View.OnClickListener {
             //update fsm
             String fsmRet = fsm.update(text);
             mResultText.append(fsmRet);
+
+            //next action
+            int fsmState[] = fsm.getState();
+            //update images
+            Bitmap bitmap;
+            switch (fsmState[0]) {
+                case 1:
+                    switch (fsmState[1]) {
+                        case 1:
+                            break;
+                        case 2:
+                            if (mainImgPath == leftUpImgPath) {
+                                mainImgPath = R.drawable.mainwin;
+                                bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath);
+                                mainWin = (ImageView) findViewById(R.id.mainWinImg);
+                                mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
+                            }
+                            leftUpImgPath = R.drawable.mainwin;
+                            bitmap = BitmapFactory.decodeResource(getResources(), leftUpImgPath);
+                            leftUpWin = (ImageView) findViewById(R.id.leftUpImg);
+                            leftUpWin.setImageDrawable(new RoundImageDrawable(bitmap));
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            //update voice
+
         }
 
     }
