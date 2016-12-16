@@ -3,7 +3,9 @@ package com.example.ywn.escapeproject;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
 import android.media.Image;
+import android.media.SoundPool;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,6 +45,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ImageView leftDownWin;
     private ImageView rightDownWin;
 
+    private SoundPool pool;
+
     private int mainImgPath;
     private int leftUpImgPath, leftDownImgPath, rightUpImgPath, rightDownImgPath;
 
@@ -62,6 +66,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
         fsm.init();
 
         Log.v("debug", "init fsm");
+
+        //soundpool init
+        pool = new SoundPool(10, AudioManager.STREAM_MUSIC, 5);
+        pool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                soundPool.play(sampleId, 2, 2, 0, 0, 1);
+            }
+        });
 
         // init image path
         mainImgPath = R.drawable.mainwin;
@@ -212,7 +225,25 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     break;
             }
             //update voice
-
+            switch (fsmState[2]) {
+                case 1:
+                    switch (fsmState[3]) {
+                        case 1:
+                            switch (fsmState[4]) {
+                                case 1:
+                                    pool.load(this, R.raw.sound1, 0);
+                                    break;
+                                default:
+                                    break;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
     }
