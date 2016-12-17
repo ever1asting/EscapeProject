@@ -123,7 +123,11 @@ public class FiniteStateMachine {
                     "escape leave", "BAD END. Single escape.",
                     "curtain curtains", "Happy End."},
                     /* state 6 */
-                    {},
+                    {"hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
+                    "mirror clean", "I had clean it.",
+                    "down downstairs", "Back to ROOM 2",
+                    "escape leave", "HAPPY END.",
+                    "curtain curtains", "I had drawn it."},
                     /* state 7 */
                     {},
                     /* state 8 */
@@ -133,7 +137,15 @@ public class FiniteStateMachine {
                     /* state 9 */
                     {"hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
                     "mirror clean", "I had clean it",
-                    "down downstairs", "Back to ROOM 2"}
+                    "down downstairs", "Back to ROOM 2",
+                    "escape leave", "Escape? Where to escape?",
+                    "curtain curtains", "Story time......"},
+                    /* state 10 */
+                    {"hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
+                     "mirror clean", "I had clean it",
+                     "down downstairs", "Back to ROOM 2"},
+                    /* state 11 */
+                    {}
             }
     };
 
@@ -151,13 +163,12 @@ public class FiniteStateMachine {
         state[0] = roomNum;
         state[1] = stateNum;
         state[2] = preRoomNum;
-        state[3] = preRoomNum;
+        state[3] = preStateNum;
         state[4] = preReact;
         return state;
     }
 
     public void init() {
-        /* test ROOM 2 */
         roomNum = 1;
         stateNum = 1;
     }

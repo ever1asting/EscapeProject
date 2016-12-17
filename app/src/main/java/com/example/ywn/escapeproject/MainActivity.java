@@ -133,6 +133,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         else if(id == R.id.rightDownImg)
             mainImgPath = rightDownImgPath;
 
+        mResultText.setText(",height = " + mainWin.getHeight() + ", width = " + mainWin.getWidth());
+
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath);
         mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
         mainWin.setVisibility(View.VISIBLE);
