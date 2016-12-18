@@ -71,6 +71,12 @@ public class FiniteStateMachine {
                      "light skylight", "(Climbing the ladder...) Oh, a new room, let us call it ROOM 4",
                      "body", "It is in the corride now. We had used it to attract the zombie successfully.",
                      "open+three open+third door+three door+third", "BAD END: The girl was attacked by the zombie.",
+                     "open+two open+second door+two door+second", "Back to ROOM 3."},
+                    /* state 8 */
+                    {"open+one open+first door+one door+first", "Ok, I went back to ROOM 1",
+                     "light skylight", "(Climbing the ladder...) back to ROOM 4",
+                      "body", "It is in the corride now. We had used it to attract the zombie successfully.",
+                      "open+three open+third door+three door+third", "BAD END: The girl was attacked by the zombie.",
                      "open+two open+second door+two door+second", "Back to ROOM 3."}
             },
             /***********  Corridor  ************/
@@ -121,7 +127,7 @@ public class FiniteStateMachine {
                     "mirror clean", "I had clean it.",
                     "down downstairs", "Back to ROOM 2",
                     "escape leave", "BAD END. Single escape.",
-                    "curtain curtains", "Happy End."},
+                    "curtain curtains", "Story time...."},
                     /* state 6 */
                     {"hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
                     "mirror clean", "I had clean it.",
@@ -143,7 +149,9 @@ public class FiniteStateMachine {
                     /* state 10 */
                     {"hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
                      "mirror clean", "I had clean it",
-                     "down downstairs", "Back to ROOM 2"},
+                     "down downstairs", "Back to ROOM 2",
+                    "escape leave", "Escape? Where to escape?",
+                    "curtain curtains", "Story time......"},
                     /* state 11 */
                     {}
             }
@@ -156,6 +164,7 @@ public class FiniteStateMachine {
     private int preStateNum;
     private int preReact;
 
+    private int preStateOfRoom2;
     private int preStateOfRoom4;
 
     public int[] getState() {
@@ -169,7 +178,7 @@ public class FiniteStateMachine {
     }
 
     public void init() {
-        roomNum = 1;
+        roomNum = 5;
         stateNum = 1;
     }
 
@@ -216,7 +225,7 @@ public class FiniteStateMachine {
                                 }
                                 else if (stateNum == 8) {// back
                                     roomNum = 2;
-                                    stateNum = preStateNum;
+                                    stateNum = preStateOfRoom2;
                                 }
                                 else
                                     ++stateNum;
@@ -277,7 +286,7 @@ public class FiniteStateMachine {
                             }
                             else if (stateNum == 3 || stateNum == 4 || stateNum == 5) {
                                 switch (j / 2) {
-                                    case 0: roomNum = 1; preStateNum = stateNum; stateNum = 8;  break;
+                                    case 0: roomNum = 1; preStateOfRoom2 = stateNum; stateNum = 8;  break;
                                     case 2:
                                         if(stateNum == 4)
                                             stateNum = 5;
@@ -290,12 +299,13 @@ public class FiniteStateMachine {
                                     default: break;
                                 }
                             }
-                            else if(stateNum == 7) {
+                            else if(stateNum == 7 || stateNum == 8) {
                                 switch (j / 2) {
-                                    case 0: roomNum = 1; preStateNum = stateNum; stateNum = 8;  break;
+                                    case 0: roomNum = 1; preStateOfRoom2 = stateNum; stateNum = 8;  break;
                                     case 1:
                                         roomNum = 5;
-                                        stateNum = preStateOfRoom4;
+                                        stateNum = (stateNum == 7)? 1: preStateOfRoom4;
+                                        break;
                                     case 3: stateNum = 6; break; // BE
                                     case 4:
                                         roomNum = 4;
@@ -410,6 +420,10 @@ public class FiniteStateMachine {
                                     roomNum = 2;
                                     stateNum = (stateNum == 2)? 5 : 7;
                                     break;
+                                case 2:
+                                    if(stateNum == 2)
+                                        stateNum = 3;
+                                    break;
                                 default: break;
                             }
 
@@ -462,29 +476,33 @@ public class FiniteStateMachine {
                             // set pre state
                             preReact = j + 1;
 
-                            if(stateNum == 2) {
-                                switch (j / 2) {
-                                    case 0:
-                                        if(stateNum == 2)
-                                            stateNum = 3;
-                                        else if(stateNum == 8)
-                                            stateNum = 4;
-                                        else if(stateNum == 9)
-                                            stateNum = 5;
-                                        break;
-                                    case 1:
-                                        if(stateNum == 2)
-                                            stateNum = 8;
-                                        else if(stateNum == 3 || stateNum == 4 || stateNum == 8)
-                                            ++stateNum;
-                                        break;
-                                    case 2: preStateOfRoom4 = stateNum; roomNum = 2; stateNum = 7; break;
-                                    case 3: stateNum = 7; break; // BE
-                                    case 4: stateNum = 6; break; // HE
-                                    default: break;
-                                }
+                            switch (j / 2) {
+                                case 0:
+                                    if(stateNum == 2)
+                                        stateNum = 3;
+                                    else if(stateNum == 8)
+                                        stateNum = 4;
+                                    else if(stateNum == 9)
+                                        stateNum = 5;
+                                    else if(stateNum == 10)
+                                        stateNum = 6;
+                                    break;
+                                case 1:
+                                    if(stateNum == 2)
+                                        stateNum = 8;
+                                    else if(stateNum == 3 || stateNum == 4 || stateNum == 8)
+                                        ++stateNum;
+                                    break;
+                                case 2: preStateOfRoom4 = stateNum; roomNum = 2; stateNum = 8; break;
+                                case 3:
+                                    stateNum = (stateNum == 6)? 11: 7;
+                                    break;
+                                case 4:
+                                    if(stateNum == 5 || stateNum == 9)
+                                        ++stateNum;
+                                    break;
+                                default: break;
                             }
-
 
                             return " state = " + stateNum + ", " +  " " + script[roomIndex][stateIndex][j + 1];
                         }
