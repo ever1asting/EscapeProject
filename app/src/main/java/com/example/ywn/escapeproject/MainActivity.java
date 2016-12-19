@@ -1,6 +1,7 @@
 package com.example.ywn.escapeproject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
@@ -14,43 +15,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
-import android.util.Log;
-
-import com.iflytek.cloud.RecognizerResult;
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechUtility;
-import com.iflytek.cloud.ui.RecognizerDialog;
-import com.iflytek.cloud.ui.RecognizerDialogListener;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
-    private Button btn_click;
-    private Button backBtn;
-    private Button rstBtn;
-    private EditText mResultText;
-    private ImageView mainWin;
-    private GridLayout scanWin;
     private ImageView leftUpWin;
+    private ImageView middleUpWin;
     private ImageView rightUpWin;
     private ImageView leftDownWin;
+    private ImageView middleDownWin;
     private ImageView rightDownWin;
 
-    private SoundPool pool;
+    public static SoundPool pool;
 
-    private int mainImgPath;
-    private int leftUpImgPath, leftDownImgPath, rightUpImgPath, rightDownImgPath;
+    private int leftUpImgPath, leftDownImgPath, rightUpImgPath, rightDownImgPath, middleUpImgPath, middleDownImgPath;
 
-    private FiniteStateMachine fsm;
+    private int roomNum = 1;
+    private int stateNum = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +42,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        // FSM init
-        fsm = new FiniteStateMachine();
-        fsm.init();
-
-        Log.v("debug", "init fsm");
-
         //soundpool init
         pool = new SoundPool(10, AudioManager.STREAM_MUSIC, 5);
         pool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
@@ -76,40 +51,28 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         });
 
-        // init image path
-        mainImgPath = R.drawable.mainwin;
-        leftUpImgPath = R.drawable.win1;
-        rightUpImgPath = R.drawable.win2;
-        leftDownImgPath = R.drawable.win3;
-        rightDownImgPath = R.drawable.win4;
-
         // init image for scan windows
         imgInit();
-
-        // button and textline init
-        btn_click = (Button) findViewById(R.id.startBtn);
-        mResultText = ((EditText) findViewById(R.id.contentText ));
-        mResultText.setFocusable(false);
-        backBtn = (Button) findViewById(R.id.backBtn);
-        rstBtn = (Button) findViewById(R.id.rstBtn);
-
-        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=584962eb");
-
-        btn_click.setOnClickListener(this);
-        backBtn.setOnClickListener(this);
-        rstBtn.setOnClickListener(this);
         leftUpWin.setOnClickListener(this);
         leftDownWin.setOnClickListener(this);
         rightUpWin.setOnClickListener(this);
         rightDownWin.setOnClickListener(this);
+        middleUpWin.setOnClickListener(this);
+        middleDownWin.setOnClickListener(this);
     }
 
     private void imgInit() {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath);
-        mainWin = (ImageView) findViewById(R.id.mainWinImg);
-        mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
 
-        bitmap = BitmapFactory.decodeResource(getResources(), leftUpImgPath);
+        leftUpImgPath = R.drawable.demo1;
+        middleUpImgPath = R.drawable.demo3;
+        rightUpImgPath = R.drawable.demo5;
+        leftDownImgPath = R.drawable.demo2;
+        middleDownImgPath = R.drawable.demo4;
+        rightDownImgPath = R.drawable.demo6;
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), leftUpImgPath);
         leftUpWin = (ImageView) findViewById(R.id.leftUpImg);
         leftUpWin.setImageDrawable(new RoundImageDrawable(bitmap));
 
@@ -124,148 +87,59 @@ public class MainActivity extends Activity implements View.OnClickListener {
         rightDownWin = (ImageView) findViewById(R.id.rightDownImg);
         bitmap = BitmapFactory.decodeResource(getResources(), rightDownImgPath);
         rightDownWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win4));
+
+        middleUpWin = (ImageView) findViewById(R.id.middleUpImg);
+        bitmap = BitmapFactory.decodeResource(getResources(), middleUpImgPath);
+        middleUpWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win2));
+
+        middleDownWin = (ImageView) findViewById(R.id.middleDownImg);
+        bitmap = BitmapFactory.decodeResource(getResources(), middleDownImgPath);
+        middleDownWin.setImageDrawable(new RoundImageDrawable(bitmap));//.setImageDrawable(getResources().getDrawable(R.drawable.win2));
+
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.startBtn)
-            btnVoice();
-        else if(v.getId() == R.id.backBtn)
-            backBtnEvent();
-        else if(v.getId() == R.id.rstBtn) {
-            fsm.init();
-            mResultText.setText("Restart.");
-            imgInit();
+        Intent intent = new Intent(this, PlayActivity.class);
+        intent.putExtra("roomNum", roomNum);
+        intent.putExtra("stateNum", stateNum);
+
+        int id = v.getId();
+
+        if (id == R.id.leftUpImg) {
+            intent.putExtra("mainImgPath", leftUpImgPath);
+            intent.putExtra("clickedRoom", 1);
         }
-        else
-            setMainWin(v.getId());
+        else if (id == R.id.middleUpImg) {
+            intent.putExtra("mainImgPath", middleUpImgPath);
+            intent.putExtra("clickedRoom", 2);
+        }
+        else if (id == R.id.rightUpImg) {
+            intent.putExtra("mainImgPath", rightUpImgPath);
+            intent.putExtra("clickedRoom", 3);
+        }
+        else if (id == R.id.leftDownImg) {
+            intent.putExtra("mainImgPath", leftDownImgPath);
+            intent.putExtra("clickedRoom", 4);
+        }
+        else if (id == R.id.middleDownImg) {
+            intent.putExtra("mainImgPath", middleDownImgPath);
+            intent.putExtra("clickedRoom", 5);
+        }
+        else if (id == R.id.rightDownImg) {
+            intent.putExtra("mainImgPath", rightDownImgPath);
+            intent.putExtra("clickedRoom", 6);
+        }
+        startActivityForResult(intent, 1);
     }
 
-    private void setMainWin(int id) {
-        if(id == R.id.leftUpImg)
-            mainImgPath = leftUpImgPath;
-        else if(id == R.id.rightUpImg)
-            mainImgPath = rightUpImgPath;
-        else if(id == R.id.leftDownImg)
-            mainImgPath = leftDownImgPath;
-        else if(id == R.id.rightDownImg)
-            mainImgPath = rightDownImgPath;
-
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath);
-        mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
-        mainWin.setVisibility(View.VISIBLE);
-    }
-
-    private void backBtnEvent() {
-        mainWin.setVisibility(View.GONE);
-
-    }
-
-
-    //TODO 开始说话：
-    private void btnVoice() {
-        RecognizerDialog dialog = new RecognizerDialog(this,null);
-        dialog.setParameter(SpeechConstant.LANGUAGE, "en_us");
-        dialog.setParameter(SpeechConstant.ACCENT, "mandarin");
-        mResultText.setText("");
-
-        dialog.setListener(new RecognizerDialogListener() {
-            @Override
-            public void onResult(RecognizerResult recognizerResult, boolean b) {
-                printResult(recognizerResult);
-            }
-            @Override
-            public void onError(SpeechError speechError) {
-
-            }
-        });
-        dialog.show();
-        Toast.makeText(this, "请开始说话", Toast.LENGTH_SHORT).show();
-    }
-
-    //回调结果：
-    private void printResult(RecognizerResult results) {
-        String text = parseIatResult(results.getResultString());
-        if(!text.equals(".")) {
-            // 自动填写地址
-            mResultText.append(text);
-
-            Log.v("debug", "prepare to get fsm str");
-
-            //update fsm
-            String fsmRet = fsm.update(text);
-            mResultText.append(fsmRet);
-
-            //next action
-            int fsmState[] = fsm.getState();
-            //update images
-            Bitmap bitmap;
-            switch (fsmState[0]) {
-                case 1:
-                    switch (fsmState[1]) {
-                        case 1:
-                            break;
-                        case 2:
-                            if (mainImgPath == leftUpImgPath) {
-                                mainImgPath = R.drawable.mainwin;
-                                bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath);
-                                mainWin = (ImageView) findViewById(R.id.mainWinImg);
-                                mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
-                            }
-                            leftUpImgPath = R.drawable.mainwin;
-                            bitmap = BitmapFactory.decodeResource(getResources(), leftUpImgPath);
-                            leftUpWin = (ImageView) findViewById(R.id.leftUpImg);
-                            leftUpWin.setImageDrawable(new RoundImageDrawable(bitmap));
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                default:
-                    break;
-            }
-            //update voice
-            switch (fsmState[2]) {
-                case 1:
-                    switch (fsmState[3]) {
-                        case 1:
-                            switch (fsmState[4]) {
-                                case 1:
-                                    pool.load(this, R.raw.sound1, 0);
-                                    break;
-                                default:
-                                    break;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                default:
-                    break;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == 1) {
+                roomNum = data.getIntExtra("roomNum", 1);
+                stateNum = data.getIntExtra("stateNum", 1);
             }
         }
-
     }
-
-    public static String parseIatResult(String json) {
-        StringBuffer ret = new StringBuffer();
-        try {
-            JSONTokener tokener = new JSONTokener(json);
-            JSONObject joResult = new JSONObject(tokener);
-
-            JSONArray words = joResult.getJSONArray("ws");
-            for (int i = 0; i < words.length(); i++) {
-                // 转写结果词，默认使用第一个结果
-                JSONArray items = words.getJSONObject(i).getJSONArray("cw");
-                JSONObject obj = items.getJSONObject(0);
-                ret.append(obj.getString("w"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ret.toString();
-    }
-
-
 }

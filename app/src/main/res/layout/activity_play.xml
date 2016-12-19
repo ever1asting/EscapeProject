@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_play"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:layout_margin="5dp"
+        android:id="@+id/playImage"
+        android:layout_width="match_parent"
+        android:layout_height="310dp"
+        android:scaleType="fitCenter"
+        android:clickable="false"/>
+
+    <EditText
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:text="Content"
+        android:ems="10"
+        android:id="@+id/contentText"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="normal|bold"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:textAlignment="viewStart"
+        android:gravity="start"/>
+
+    <Button
+        android:text="Input"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/startBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
+
+    <Button
+        android:text="Back"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/backBtn" />
+
+
+
+</RelativeLayout>

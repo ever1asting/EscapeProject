@@ -151,15 +151,15 @@ public class FiniteStateMachine {
         state[0] = roomNum;
         state[1] = stateNum;
         state[2] = preRoomNum;
-        state[3] = preRoomNum;
+        state[3] = preStateNum;
         state[4] = preReact;
         return state;
     }
 
-    public void init() {
+    public void init(int roomNum, int stateNum) {
         /* test ROOM 2 */
-        roomNum = 1;
-        stateNum = 1;
+        this.roomNum = roomNum;
+        this.stateNum = stateNum;
     }
 
     public String update(String text) {
