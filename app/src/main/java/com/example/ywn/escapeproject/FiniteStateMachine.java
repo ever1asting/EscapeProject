@@ -97,11 +97,11 @@ public class FiniteStateMachine {
                     /* state 2 */
                     {"open+four open+fourth door+four door+fourth", "BAD END: The girl was attacked by the zombie.",
                      "open+two open+second door+two door+second", "Back to ROOM 2",
-                    "ladder", "Using this ladder, maybe I can access to the skylight in ROOM 2."},
+                    "ladder leather", "Using this ladder, maybe I can access to the skylight in ROOM 2."},
                     /* state 3 */
                     {"open+four open+fourth door+four door+fourth", "BAD END: The girl was attacked by the zombie.",
                     "open+two open+second door+two door+second", "Come into ROOM 2. I have put the ladder here and now I can access to the skylight.",
-                     "ladder", "I have put it in ROOM 2 in order to access to the skylight."}
+                     "ladder leather", "I have put it in ROOM 2 in order to access to the skylight."}
             },
             /****************  ROOM 4  ******************/
             {
