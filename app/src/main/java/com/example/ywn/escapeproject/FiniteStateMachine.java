@@ -177,9 +177,9 @@ public class FiniteStateMachine {
         return state;
     }
 
-    public void init() {
-        roomNum = 5;
-        stateNum = 1;
+    public void init(int roomNum, int stateNum) {
+        this.roomNum = roomNum;
+        this.stateNum = stateNum;
     }
 
     public String update(String text) {
