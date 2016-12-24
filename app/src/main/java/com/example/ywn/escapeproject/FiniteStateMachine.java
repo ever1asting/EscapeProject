@@ -20,14 +20,14 @@ public class FiniteStateMachine {
                     /* state 1 */
                     {},
                     /* state 2 */
-                    {"ahead front", "Ok...seems a good path."},
+                    {"forward forwards ahead front", "Ok...seems a good path."},
                     /* state 3 */
                     {"right", "Ok...Um, there seems to be obstacles. Shall we try other direction?",
                     "left", "Ok...seems a good path."},
                     /* state 4 */
-                    {"ahead front right", "Ok...seems a good path."},
+                    {"forward forwards ahead front right", "Ok...seems a good path."},
                     /* state 5 */
-                    {"ahead front", "Ok...seems a good path. Switch seems to be here... Shall I turn on the light?"},
+                    {"forward forwards ahead front", "Ok...seems a good path. Switch seems to be here... Shall I turn on the light?"},
                     /* state 6 */
                     {"yes ok turn light switch", "Ok, I will try to turn on the light. A door here, shall I open it?"},
                     /* state 7 */
@@ -237,6 +237,14 @@ public class FiniteStateMachine {
                                         MainActivity.searchTable.put("1_8_1", new int[]{R.raw.v1_8_1, R.drawable.p1_7_toroom2_1,
                                                 R.drawable.p2_4_to5_room2, R.drawable.p3_initial,
                                                 R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                                    }
+                                    if(preStateOfRoom2 == 7) {
+                                        MainActivity.searchTable.put("1_8_0", new int[]{R.raw.v1_8_0, R.drawable.p1_8_others,
+                                                R.drawable.p2_7_toroom4_2, R.drawable.p2_4_to5_corrider, R.drawable.p4_3_toroom2_4,
+                                                R.drawable.p5_initial, R.drawable.p6_intial});
+                                        MainActivity.searchTable.put("1_8_1", new int[]{R.raw.v1_8_1, R.drawable.p1_7_toroom2_1,
+                                                R.drawable.p4_3_toroom2_2, R.drawable.p2_4_to5_corrider,
+                                                R.drawable.p4_3_toroom2_4, R.drawable.p5_initial, R.drawable.p6_intial});
                                     }
                                 }
                                 else
