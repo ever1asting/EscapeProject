@@ -256,7 +256,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
         searchTable.put("1_7_0", new int[]{R.raw.v1_7_0, R.drawable.p1_7_others, R.drawable.p2_initial, R.drawable.p3_initial,
                 R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
-        searchTable.put("1_7_1", new int[]{R.raw.v1_7_1, R.drawable.p1_7_toroom2_1, R.drawable.p1_7_toRoom2_2, R.drawable.p3_initial,
+        searchTable.put("1_7_1", new int[]{R.raw.v1_7_1, R.drawable.p1_7_toroom2_1, R.drawable.p1_7_toroom2_2, R.drawable.p3_initial,
                 R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
         searchTable.put("1_8_0", new int[]{R.raw.v1_8_0, R.drawable.p1_8_others, R.drawable.p2_initial, R.drawable.p3_initial,
                 R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});

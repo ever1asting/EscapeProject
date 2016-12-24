@@ -241,6 +241,9 @@ public class FiniteStateMachine {
                                 }
                                 else
                                     ++stateNum;
+
+                                Log.v("1-8 bug", "preRoomNum = %d, preStateNum = %d, preReact = %d."+ preRoomNum+"," +preStateNum+","+ preReact);
+
                                 return " state = " + stateNum + ", " +  " " + script[roomIndex][stateIndex][j + 1];
                             }
                         }
