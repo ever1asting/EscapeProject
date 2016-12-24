@@ -92,7 +92,7 @@ public class PlayActivity extends Activity implements View.OnClickListener {
 
         btn_click.setOnClickListener(this);
         backBtn.setOnClickListener(this);
-
+        mainWin.setOnClickListener(this);
 
     }
 
@@ -145,12 +145,19 @@ public class PlayActivity extends Activity implements View.OnClickListener {
             //show action
             int fsmState[] = fsm.getState();
             String key = "" + fsmState[2] + "_" + fsmState[3] + "_" + fsmState[4];
-            Log.v("123",key);
+            Log.v("action",key);
             int value[] = MainActivity.searchTable.get(key);
 
             //update images
+            if (bitmap != null && !bitmap.isRecycled()) {
+                bitmap.recycle();
+                bitmap = null;
+            }
+            System.gc();
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 2;
             mainImgPath = value[clickedRoom];
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath);
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath, options);
             mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
 
             //update voice

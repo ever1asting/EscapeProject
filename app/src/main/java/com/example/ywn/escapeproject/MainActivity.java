@@ -89,7 +89,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         rightUpImgPath = R.drawable.p3_initial;
         leftDownImgPath = R.drawable.p4_initial;
         middleDownImgPath = R.drawable.p5_initial;
-        rightDownImgPath = R.drawable.p6_intial;
+        rightDownImgPath = R.drawable.p6_initial;
 
         leftUpBitmap = BitmapFactory.decodeResource(getResources(), leftUpImgPath, options);
         leftUpWin = (ImageView) findViewById(R.id.leftUpImg);
@@ -119,6 +119,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private void imgSetting() {
         String key = "" + state[2] + "_" + state[3] + "_" + state[4];
+        Log.v("main", key);
         int value[] = MainActivity.searchTable.get(key);
         if (leftUpBitmap != null && !leftUpBitmap.isRecycled()) {
             leftUpBitmap.recycle();
@@ -214,10 +215,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.v("234","234");
         if (requestCode == 1) {
             if (resultCode == 1) {
-                Log.v("123","123");
                 state = data.getIntArrayExtra("state");
 
                 //update images
@@ -229,123 +228,123 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private void searchTableInit() {
         searchTable = new HashMap<String, int[]>();
         searchTable.put("0_0_0", new int[]{0, R.drawable.p1_initial, R.drawable.p2_initial, R.drawable.p3_initial,
-        R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+        R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("1_1_1", new int[]{R.raw.v1_1_1, R.drawable.p1_1_to2, R.drawable.p2_initial, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("1_2_0", new int[]{R.raw.v1_2_0, R.drawable.p1_2_others, R.drawable.p2_initial, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("1_2_1", new int[]{R.raw.v1_2_1, R.drawable.p1_2_to3, R.drawable.p2_initial, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("1_3_0", new int[]{R.raw.v1_3_0, R.drawable.p1_3_others, R.drawable.p2_initial, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("1_3_1", new int[]{R.raw.v1_3_1, R.drawable.p1_3_right, R.drawable.p2_initial, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("1_3_3", new int[]{R.raw.v1_3_3, R.drawable.p1_3_to4, R.drawable.p2_initial, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("1_4_0", new int[]{R.raw.v1_4_0, R.drawable.p1_4_others, R.drawable.p2_initial, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("1_4_1", new int[]{R.raw.v1_4_1, R.drawable.p1_4_to5, R.drawable.p2_initial, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("1_5_0", new int[]{R.raw.v1_5_0, R.drawable.p1_5_others, R.drawable.p2_initial, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("1_5_1", new int[]{R.raw.v1_5_1, R.drawable.p1_5_to6, R.drawable.p2_initial, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("1_6_0", new int[]{R.raw.v1_6_0, R.drawable.p1_6_others, R.drawable.p2_initial, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("1_6_1", new int[]{R.raw.v1_6_1, R.drawable.p1_6_to7, R.drawable.p2_initial, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("1_7_0", new int[]{R.raw.v1_7_0, R.drawable.p1_7_others, R.drawable.p2_initial, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("1_7_1", new int[]{R.raw.v1_7_1, R.drawable.p1_7_toroom2_1, R.drawable.p1_7_toroom2_2, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_1_1", new int[]{R.raw.v2_1_1, R.drawable.p1_7_toroom2_1, R.drawable.p2_1_to2, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_2_0", new int[]{R.raw.v2_2_0, R.drawable.p1_7_toroom2_1, R.drawable.p2_2_others, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_2_1", new int[]{R.raw.v2_2_1, R.drawable.p1_7_toroom2_1, R.drawable.p2_2_to3, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_2_3", new int[]{R.raw.v2_2_3, R.drawable.p1_7_toroom2_1, R.drawable.p2_2_light, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_2_5", new int[]{R.raw.v2_2_5, R.drawable.p1_7_toroom2_1, R.drawable.p2_2_body, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_3_0", new int[]{R.raw.v2_3_0, R.drawable.p1_7_toroom2_1, R.drawable.p2_3_others, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_3_1", new int[]{R.raw.v2_3_1, R.drawable.p1_8_others, R.drawable.p2_initial, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("1_8_0", new int[]{R.raw.v1_8_0, R.drawable.p1_8_others, R.drawable.p2_initial, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("1_8_1", new int[]{R.raw.v1_8_1, R.drawable.p1_7_toroom2_1, R.drawable.p2_3_others, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_3_3", new int[]{R.raw.v2_3_3, R.drawable.p1_7_toroom2_1, R.drawable.p2_3_light, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_3_5", new int[]{R.raw.v2_3_5, R.drawable.p1_7_toroom2_1, R.drawable.p2_3_body, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_3_7", new int[]{R.raw.v2_3_7, R.drawable.p1_7_toroom2_1, R.drawable.p2_3_tobe, R.drawable.p3_initial,
-                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_3_9", new int[]{R.raw.v2_3_9, R.drawable.p1_7_toroom2_1, R.drawable.p2_3_tocorrider_2,
-                R.drawable.p2_3_tocorrider_3, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_3_tocorrider_3, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("3_1_1", new int[]{R.raw.v3_1_1, R.drawable.p1_7_toroom2_1, R.drawable.p2_3_tocorrider_2,
-                R.drawable.p3_1_to2, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p3_1_to2, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("3_2_0", new int[]{R.raw.v3_2_0, R.drawable.p1_7_toroom2_1, R.drawable.p2_3_tocorrider_2,
-                R.drawable.p3_2_others, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p3_2_others, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("3_2_1", new int[]{R.raw.v3_2_1, R.drawable.p1_7_toroom2_1, R.drawable.p2_3_tocorrider_2,
-                R.drawable.p3_2_tobe, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p3_2_tobe, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("3_2_3", new int[]{R.raw.v3_2_3, R.drawable.p1_7_toroom2_1, R.drawable.p3_2_toroom2_2,
-                R.drawable.p3_2_toroom2_3, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p3_2_toroom2_3, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_4_0", new int[]{R.raw.v2_4_0, R.drawable.p1_7_toroom2_1, R.drawable.p2_4_others,
-                R.drawable.p3_2_toroom2_3, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p3_2_toroom2_3, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_4_1", new int[]{R.raw.v2_4_1, R.drawable.p1_8_others, R.drawable.p2_initial,
-                R.drawable.p3_2_toroom2_3, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p3_2_toroom2_3, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_4_3", new int[]{R.raw.v2_4_3, R.drawable.p1_7_toroom2_1, R.drawable.p2_4_light,
-                R.drawable.p3_2_toroom2_3, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p3_2_toroom2_3, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_4_5", new int[]{R.raw.v2_4_5, R.drawable.p1_7_toroom2_1, R.drawable.p2_4_to5_room2,
-                R.drawable.p2_4_to5_corrider, R.drawable.p2_4_to5_room3, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p2_4_to5_room3, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_4_7", new int[]{R.raw.v2_4_7, R.drawable.p1_7_toroom2_1, R.drawable.p2_4_tobe,
-                R.drawable.p3_2_toroom2_3, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p3_2_toroom2_3, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_4_9", new int[]{R.raw.v2_4_9, R.drawable.p1_7_toroom2_1, R.drawable.p2_4_tocorrider_2,
-                R.drawable.p2_4_tocorrider_3, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_tocorrider_3, R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_5_0", new int[]{R.raw.v2_5_0, R.drawable.p1_7_toroom2_1, R.drawable.p2_5_others,
-                R.drawable.p2_4_to5_corrider, R.drawable.p2_4_to5_room3, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p2_4_to5_room3, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_5_1", new int[]{R.raw.v2_5_1, R.drawable.p1_8_others, R.drawable.p2_5_toroom3_2,
-                R.drawable.p2_4_to5_corrider, R.drawable.p2_4_to5_room3, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p2_4_to5_room3, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_5_3", new int[]{R.raw.v2_5_3, R.drawable.p1_7_toroom2_1, R.drawable.p2_5_light,
-                R.drawable.p2_4_to5_corrider, R.drawable.p2_4_to5_room3, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p2_4_to5_room3, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_5_5", new int[]{R.raw.v2_5_5, R.drawable.p1_7_toroom2_1, R.drawable.p2_5_others,
-                R.drawable.p2_4_to5_corrider, R.drawable.p2_4_to5_room3, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p2_4_to5_room3, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_5_7", new int[]{R.raw.v2_5_7, R.drawable.p1_7_toroom2_1, R.drawable.p2_5_tobe,
-                R.drawable.p2_4_to5_corrider, R.drawable.p2_4_to5_room3, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p2_4_to5_room3, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_5_9", new int[]{R.raw.v2_5_9, R.drawable.p1_7_toroom2_1, R.drawable.p2_5_toroom3_2,
-                R.drawable.p2_4_to5_corrider, R.drawable.p2_5_toroom3_4, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p2_5_toroom3_4, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("4_1_1", new int[]{R.raw.v4_1_1, R.drawable.p1_7_toroom2_1, R.drawable.p2_5_toroom3_2,
-                R.drawable.p2_4_to5_corrider, R.drawable.p4_1_to2, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p4_1_to2, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("4_2_0", new int[]{R.raw.v4_2_0, R.drawable.p1_7_toroom2_1, R.drawable.p2_5_toroom3_2,
-                R.drawable.p2_4_to5_corrider, R.drawable.p4_2_others, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p4_2_others, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("4_2_1", new int[]{R.raw.v4_2_1, R.drawable.p1_7_toroom2_1, R.drawable.p2_5_toroom3_2,
-                R.drawable.p2_4_to5_corrider, R.drawable.p4_2_tobe, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p4_2_tobe, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("4_2_3", new int[]{R.raw.v4_2_3, R.drawable.p1_7_toroom2_1, R.drawable.p4_2_toroom2_2,
-                R.drawable.p2_4_to5_corrider, R.drawable.p4_2_toroom2_4, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p4_2_toroom2_4, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("4_2_5", new int[]{R.raw.v4_2_5, R.drawable.p1_7_toroom2_1, R.drawable.p4_2_to3_room2,
-                R.drawable.p2_4_to5_corrider, R.drawable.p4_2_to3_room3, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p4_2_to3_room3, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("4_3_0", new int[]{R.raw.v4_3_0, R.drawable.p1_7_toroom2_1, R.drawable.p2_5_toroom3_2,
-                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_others, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_others, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("4_3_1", new int[]{R.raw.v4_3_1, R.drawable.p1_7_toroom2_1, R.drawable.p2_5_toroom3_2,
-                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_tobe, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_tobe, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("4_3_3", new int[]{R.raw.v4_3_3, R.drawable.p1_7_toroom2_1, R.drawable.p4_3_toroom2_2,
-                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_toroom2_4, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_toroom2_4, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("4_3_5", new int[]{R.raw.v4_3_5, R.drawable.p1_7_toroom2_1, R.drawable.p2_5_toroom3_2,
-                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_ladder, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_ladder, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_7_0", new int[]{R.raw.v2_7_0, R.drawable.p1_7_toroom2_1, R.drawable.p2_7_others,
-                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_toroom2_4, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_toroom2_4, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_7_1", new int[]{R.raw.v2_7_1, R.drawable.p1_8_others, R.drawable.p2_7_toroom3_2,
-                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_toroom2_4, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_toroom2_4, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_7_3", new int[]{R.raw.v2_7_3, R.drawable.p1_7_toroom2_1, R.drawable.p2_7_toroom4_2,
-                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_toroom2_4, R.drawable.p2_7_toroom4_5, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_toroom2_4, R.drawable.p2_7_toroom4_5, R.drawable.p6_initial});
         searchTable.put("2_7_5", new int[]{R.raw.v2_7_5, R.drawable.p1_7_toroom2_1, R.drawable.p2_7_others,
-                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_toroom2_4, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_toroom2_4, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_7_7", new int[]{R.raw.v2_7_7, R.drawable.p1_7_toroom2_1, R.drawable.p2_7_tobe,
-                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_toroom2_4, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p4_3_toroom2_4, R.drawable.p5_initial, R.drawable.p6_initial});
         searchTable.put("2_7_9", new int[]{R.raw.v2_7_9, R.drawable.p1_7_toroom2_1, R.drawable.p2_7_toroom3_2,
-                R.drawable.p2_4_to5_corrider, R.drawable.p2_7_toroom3_4, R.drawable.p5_initial, R.drawable.p6_intial});
+                R.drawable.p2_4_to5_corrider, R.drawable.p2_7_toroom3_4, R.drawable.p5_initial, R.drawable.p6_initial});
 
     }
 }
