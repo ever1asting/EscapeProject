@@ -29,9 +29,9 @@ public class FiniteStateMachine {
                     /* state 5 */
                     {"ahead front", "Ok...seems a good path. Switch seems to be here... Shall I turn on the light?"},
                     /* state 6 */
-                    {"turn light switch", "Ok, I will try to turn on the light. A door here, shall I open it?"},
+                    {"yes ok turn light switch", "Ok, I will try to turn on the light. A door here, shall I open it?"},
                     /* state 7 */
-                    {"open door", "Ok, next room"},
+                    {"yes ok open door", "Ok, next room"},
                     /* state 8 */
                     {"open door", "Ok, back to ROOM 2"}
             },
@@ -177,9 +177,12 @@ public class FiniteStateMachine {
         return state;
     }
 
-    public void init(int roomNum, int stateNum) {
+    public void init(int roomNum, int stateNum, int preRoomNum, int preStateNum, int preReact) {
         this.roomNum = roomNum;
         this.stateNum = stateNum;
+        this.preRoomNum = preRoomNum;
+        this.preStateNum = preStateNum;
+        this.preReact = preReact;
     }
 
     public String update(String text) {
