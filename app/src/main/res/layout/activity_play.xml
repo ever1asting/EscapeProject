@@ -11,7 +11,7 @@
         android:scaleType="fitCenter"
         android:clickable="false"/>
 
-    <EditText
+    <com.example.ywn.escapeproject.TypeTextView
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:text="Content"

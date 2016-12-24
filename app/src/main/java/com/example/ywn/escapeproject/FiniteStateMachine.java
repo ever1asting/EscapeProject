@@ -164,8 +164,8 @@ public class FiniteStateMachine {
     private int preStateNum;
     private int preReact;
 
-    private int preStateOfRoom2;
-    private int preStateOfRoom4;
+    private static int preStateOfRoom2 = 0;
+    private static int preStateOfRoom4 = 0;
 
     public int[] getState() {
         int[] state = new int[5];
