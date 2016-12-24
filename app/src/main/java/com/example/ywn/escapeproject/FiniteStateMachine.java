@@ -48,21 +48,21 @@ public class FiniteStateMachine {
                     {"open+one open+first door+one door+first", "Ok, I went back to ROOM 1",
                     "light", "Light comes from the skylight, but I can not access to the skylight. A ladder may help.",
                     "body", "A body here. It may attract zombies.",
-                    "open+two open+second door+two door+second", "BAD END: The girl was attacked by the zombie.",
-                     "open+three open+third door+three door+third", "Oh, Corride. "},
+                    "left+door open+left open+two open+second door+two door+second", "BAD END: The girl was attacked by the zombie.",
+                     "right+door open+right open+three open+third door+three door+third", "Oh, Corride. "},
                     /* state 4 */
                     {"open+one open+first door+one door+first", "Ok, I went back to ROOM 1",
                      "light", "Light comes from the skylight, but I can not access to the skylight. A ladder may help.",
                      "body", "Um...I think we can use this to attract the zombie and let " +
-                            "them go into corride, so that I can come into ROOM 4. Let me try...Good, I succeed.",
-                    "open+two open+second door+two door+second", "BAD END: The girl was attacked by the zombie.",
-                     "open+three open+third door+three door+third", "Come to corride. "},
+                     "them go into corride, so that I can come into ROOM 4. Let me try...Good, I succeed.",
+                    "left+door open+left open+two open+second door+two door+second", "BAD END: The girl was attacked by the zombie.",
+                     "right+door open+right open+three open+third door+three door+third", "Come to corride. "},
                     /* state 5 */
                     {"open+one open+first door+one door+first", "Ok, I went back to ROOM 1",
                     "light", "Light comes from the skylight, but I can not access to the skylight. A ladder may help.",
                     "body", "It is in the corride now. We had used it to attract the zombie successfully.",
-                    "open+three open+third door+three door+third", "BAD END: The girl was attacked by the zombie.",
-                    "open+two open+second door+two door+second", "Ok, a new room. We can call it ROOM 3.",
+                    "right+door open+right open+three open+third door+three door+third", "BAD END: The girl was attacked by the zombie.",
+                    "left+door open+left open+two open+second door+two door+second", "Ok, a new room. We can call it ROOM 3.",
                     },
                     /* state 6 */
                     {},// BAD END
@@ -70,14 +70,14 @@ public class FiniteStateMachine {
                     {"open+one open+first door+one door+first", "Ok, I went back to ROOM 1",
                      "light skylight", "(Climbing the ladder...) Oh, a new room, let us call it ROOM 4",
                      "body", "It is in the corride now. We had used it to attract the zombie successfully.",
-                     "open+three open+third door+three door+third", "BAD END: The girl was attacked by the zombie.",
-                     "open+two open+second door+two door+second", "Back to ROOM 3."},
+                     "right+door open+right open+three open+third door+three door+third", "BAD END: The girl was attacked by the zombie.",
+                     "left+door open+left open+two open+second door+two door+second", "Back to ROOM 3."},
                     /* state 8 */
                     {"open+one open+first door+one door+first", "Ok, I went back to ROOM 1",
                      "light skylight", "(Climbing the ladder...) back to ROOM 4",
                       "body", "It is in the corride now. We had used it to attract the zombie successfully.",
-                      "open+three open+third door+three door+third", "BAD END: The girl was attacked by the zombie.",
-                     "open+two open+second door+two door+second", "Back to ROOM 3."}
+                      "right+door open+right open+three open+third door+three door+third", "BAD END: The girl was attacked by the zombie.",
+                     "left+door open+left open+two open+second door+two door+second", "Back to ROOM 3."}
             },
             /***********  Corridor  ************/
             {
