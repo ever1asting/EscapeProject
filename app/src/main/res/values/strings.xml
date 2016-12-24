@@ -15,5 +15,6 @@
 
     <string name="wrongRoomInfo">Oh, it seems the girl is not here</string>
     <string name="rightRoomInfo">Please say something</string>
+    <string name="BEInfo">BAD END! Click the picture to reset the game</string>
 
 </resources>
