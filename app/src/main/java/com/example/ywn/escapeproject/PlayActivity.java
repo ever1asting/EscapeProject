@@ -69,6 +69,7 @@ public class PlayActivity extends Activity implements View.OnClickListener {
         bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath, options);
         mainWin = (ImageView) findViewById(R.id.playImage);
         mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
+        mainWin.setClickable(false);
 
 
         // button and textline init
@@ -77,6 +78,7 @@ public class PlayActivity extends Activity implements View.OnClickListener {
         mResultText = ((EditText) findViewById(R.id.contentText ));
         mResultText.setFocusable(false);
         backBtn = (Button) findViewById(R.id.backBtn);
+        backBtn.setVisibility(View.VISIBLE);
         if (clickedRoom != state[0]) {
             mResultText.setText(R.string.wrongRoomInfo);
             btn_click.setVisibility(View.INVISIBLE);
@@ -106,6 +108,8 @@ public class PlayActivity extends Activity implements View.OnClickListener {
             btnVoice();
         else if(v.getId() == R.id.backBtn)
             backBtnEvent();
+        else if(v.getId() == R.id.playImage)
+            resetEvent();
     }
 
     private void btnVoice() {
@@ -152,6 +156,19 @@ public class PlayActivity extends Activity implements View.OnClickListener {
 
             //update voice
             MainActivity.pool.load(this, value[0], 1);
+
+            //if room changed
+            if (clickedRoom != fsmState[0]) {
+                btn_click.setVisibility(View.INVISIBLE);
+            }
+
+            //if bad end
+            if (fsmState[0] == 2 && fsmState[1] == 6) {
+                mResultText.setText(R.string.BEInfo);
+                btn_click.setVisibility(View.INVISIBLE);
+                backBtn.setVisibility(View.INVISIBLE);
+                mainWin.setClickable(true);
+            }
         }
     }
 
@@ -177,6 +194,14 @@ public class PlayActivity extends Activity implements View.OnClickListener {
     private void backBtnEvent() {
         Intent intent = new Intent();
         int fsmState[] = fsm.getState();
+        intent.putExtra("state", fsmState);
+        setResult(1, intent);
+        finish();
+    }
+
+    private void resetEvent() {
+        Intent intent = new Intent();
+        int fsmState[] = new int[]{1,1,0,0,0};
         intent.putExtra("state", fsmState);
         setResult(1, intent);
         finish();
