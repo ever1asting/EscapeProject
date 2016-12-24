@@ -109,27 +109,27 @@ public class FiniteStateMachine {
                     /* state 1 */
                     {},
                     /* state 2 */
-                    {"hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
+                    {"cloth clothes hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
                     "mirror", "A dirty mirror here. Can see anything in it before clean it.",
                     "down downstairs", "Back to ROOM 2"},
                     /* state 3 */
-                    {"hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
+                    {"cloth clothes hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
                     "mirror", "A dirty mirror here. Can see anything in it before clean it.",
                     "down downstairs", "Back to ROOM 2",
                     "escape leave", "BAD END. Single escape."},
                     /* state 4 */
-                    {"hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
+                    {"cloth clothes hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
                     "mirror clean", "Clean it? Um... Ok",
                      "down downstairs", "Back to ROOM 2",
                      "escape leave", "BAD END. Single escape."},
                     /* state 5 */
-                    {"hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
+                    {"cloth clothes hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
                     "mirror clean", "I had clean it.",
                     "down downstairs", "Back to ROOM 2",
                     "escape leave", "BAD END. Single escape.",
                     "curtain curtains", "Story time...."},
                     /* state 6 */
-                    {"hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
+                    {"cloth clothes hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
                     "mirror clean", "I had clean it.",
                     "down downstairs", "Back to ROOM 2",
                     "escape leave", "HAPPY END.",
@@ -137,17 +137,17 @@ public class FiniteStateMachine {
                     /* state 7 */
                     {},
                     /* state 8 */
-                    {"hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
+                    {"cloth clothes hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
                     "mirror clean", "Clean it? Um... Ok",
                      "down downstairs", "Back to ROOM 2"},
                     /* state 9 */
-                    {"hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
+                    {"cloth clothes hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
                     "mirror clean", "I had clean it",
                     "down downstairs", "Back to ROOM 2",
                     "escape leave", "Escape? Where to escape?",
                     "curtain curtains", "Story time......"},
                     /* state 10 */
-                    {"hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
+                    {"cloth clothes hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
                      "mirror clean", "I had clean it",
                      "down downstairs", "Back to ROOM 2",
                     "escape leave", "Escape? Where to escape?",
@@ -229,6 +229,15 @@ public class FiniteStateMachine {
                                 else if (stateNum == 8) {// back
                                     roomNum = 2;
                                     stateNum = preStateOfRoom2;
+                                    // modify Image in Room 2
+                                    if(preStateOfRoom2 == 5) {
+                                        MainActivity.searchTable.put("1_8_0", new int[]{R.raw.v1_8_0, R.drawable.p1_8_others,
+                                                R.drawable.p2_4_to5_room2, R.drawable.p3_initial, R.drawable.p4_initial,
+                                                R.drawable.p5_initial, R.drawable.p6_intial});
+                                        MainActivity.searchTable.put("1_8_1", new int[]{R.raw.v1_8_1, R.drawable.p1_7_toroom2_1,
+                                                R.drawable.p2_4_to5_room2, R.drawable.p3_initial,
+                                                R.drawable.p4_initial, R.drawable.p5_initial, R.drawable.p6_intial});
+                                    }
                                 }
                                 else
                                     ++stateNum;
