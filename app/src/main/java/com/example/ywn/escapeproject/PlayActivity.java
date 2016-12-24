@@ -33,7 +33,7 @@ import org.json.JSONTokener;
 public class PlayActivity extends Activity implements View.OnClickListener {
     private Button btn_click;
     private Button backBtn;
-    private EditText mResultText;
+    private TypeTextView mResultText;
     private ImageView mainWin;
 
     private int mainImgPath;
@@ -75,7 +75,7 @@ public class PlayActivity extends Activity implements View.OnClickListener {
         // button and textline init
         clickedRoom = intent.getIntExtra("clickedRoom", 0);
         btn_click = (Button) findViewById(R.id.startBtn);
-        mResultText = ((EditText) findViewById(R.id.contentText ));
+        mResultText = ((TypeTextView) findViewById(R.id.contentText ));
         mResultText.setFocusable(false);
         backBtn = (Button) findViewById(R.id.backBtn);
         backBtn.setVisibility(View.VISIBLE);
@@ -92,7 +92,7 @@ public class PlayActivity extends Activity implements View.OnClickListener {
 
         btn_click.setOnClickListener(this);
         backBtn.setOnClickListener(this);
-
+        mainWin.setOnClickListener(this);
 
     }
 
@@ -136,22 +136,28 @@ public class PlayActivity extends Activity implements View.OnClickListener {
         String text = parseIatResult(results.getResultString());
         if(!text.equals(".")) {
             // 自动填写地址
-            mResultText.append(text);
-
-            Log.v("debug", "prepare to get fsm str");
+            //mResultText.append(text);
 
             //update fsm
-            String fsmRet = fsm.update(text);
-            mResultText.append(fsmRet);
+            String fsmRet = text + fsm.update(text);
+            mResultText.start(fsmRet);
 
             //show action
             int fsmState[] = fsm.getState();
             String key = "" + fsmState[2] + "_" + fsmState[3] + "_" + fsmState[4];
+            Log.v("action",key);
             int value[] = MainActivity.searchTable.get(key);
 
             //update images
+            if (bitmap != null && !bitmap.isRecycled()) {
+                bitmap.recycle();
+                bitmap = null;
+            }
+            System.gc();
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 2;
             mainImgPath = value[clickedRoom];
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath);
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath, options);
             mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
 
             //update voice
@@ -164,7 +170,7 @@ public class PlayActivity extends Activity implements View.OnClickListener {
 
             //if bad end
             if (fsmState[0] == 2 && fsmState[1] == 6) {
-                mResultText.setText(R.string.BEInfo);
+                //mResultText.setText(R.string.BEInfo);
                 btn_click.setVisibility(View.INVISIBLE);
                 backBtn.setVisibility(View.INVISIBLE);
                 mainWin.setClickable(true);
