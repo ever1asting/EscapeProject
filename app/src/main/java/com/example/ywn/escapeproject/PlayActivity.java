@@ -37,6 +37,8 @@ public class PlayActivity extends Activity implements View.OnClickListener {
     private ImageView mainWin;
 
     private int mainImgPath;
+    private int clickedRoom;
+    private Bitmap bitmap;
 
     private FiniteStateMachine fsm;
 
@@ -51,24 +53,31 @@ public class PlayActivity extends Activity implements View.OnClickListener {
 
         // FSM init
         Intent intent = getIntent();
-        int stateNum = intent.getIntExtra("stateNum", 1);
-        int roomNum = intent.getIntExtra("roomNum", 1);
+        int []state = intent.getIntArrayExtra("state");
         fsm = new FiniteStateMachine();
-        fsm.init(stateNum, roomNum);
+        fsm.init(state[0], state[1], state[2], state[3], state[4]);
 
         //img init
+        if (bitmap != null && !bitmap.isRecycled()) {
+            bitmap.recycle();
+            bitmap = null;
+        }
+        System.gc();
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
         mainImgPath = intent.getIntExtra("mainImgPath", 0);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath);
+        bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath, options);
         mainWin = (ImageView) findViewById(R.id.playImage);
         mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
 
+
         // button and textline init
-        int clickedRoom = intent.getIntExtra("clickedRoom", 0);
+        clickedRoom = intent.getIntExtra("clickedRoom", 0);
         btn_click = (Button) findViewById(R.id.startBtn);
         mResultText = ((EditText) findViewById(R.id.contentText ));
         mResultText.setFocusable(false);
         backBtn = (Button) findViewById(R.id.backBtn);
-        if (clickedRoom != roomNum) {
+        if (clickedRoom != state[0]) {
             mResultText.setText(R.string.wrongRoomInfo);
             btn_click.setVisibility(View.INVISIBLE);
         }
@@ -82,6 +91,12 @@ public class PlayActivity extends Activity implements View.OnClickListener {
         btn_click.setOnClickListener(this);
         backBtn.setOnClickListener(this);
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
     }
 
@@ -125,11 +140,18 @@ public class PlayActivity extends Activity implements View.OnClickListener {
             String fsmRet = fsm.update(text);
             mResultText.append(fsmRet);
 
-            //next action
+            //show action
             int fsmState[] = fsm.getState();
+            String key = "" + fsmState[2] + "_" + fsmState[3] + "_" + fsmState[4];
+            int value[] = MainActivity.searchTable.get(key);
+
             //update images
+            mainImgPath = value[clickedRoom];
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath);
+            mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
 
             //update voice
+            MainActivity.pool.load(this, value[0], 1);
         }
     }
 
@@ -155,8 +177,7 @@ public class PlayActivity extends Activity implements View.OnClickListener {
     private void backBtnEvent() {
         Intent intent = new Intent();
         int fsmState[] = fsm.getState();
-        intent.putExtra("roomNum", fsmState[0]);
-        intent.putExtra("stateNum", fsmState[1]);
+        intent.putExtra("state", fsmState);
         setResult(1, intent);
         finish();
     }
