@@ -206,7 +206,7 @@ public class FiniteStateMachine {
                 // set pre state
                 preRoomNum = 1;
                 preStateNum = stateNum;
-                preReact = -1;
+                preReact = 0;
 
                 stateIndex = stateNum;
                 for(int i = 0; i < vocab.length; ++i)
@@ -254,7 +254,7 @@ public class FiniteStateMachine {
                 //set pre state
                 preRoomNum = 2;
                 preStateNum = stateNum;
-                preReact = -1;
+                preReact = 0;
 
                 for(int j = 0; j < script[roomIndex][stateIndex].length; j += 2) {
                     String[] keyword = script[roomIndex][stateIndex][j].split(" ");
@@ -340,7 +340,7 @@ public class FiniteStateMachine {
                 //set pre state
                 preRoomNum = 3;
                 preStateNum = stateNum;
-                preReact = -1;
+                preReact = 0;
 
                 for (int j = 0; j < script[roomIndex][stateIndex].length; j += 2) {
                     String[] keyword = script[roomIndex][stateIndex][j].split(" ");
@@ -390,7 +390,7 @@ public class FiniteStateMachine {
                 //set pre state
                 preRoomNum = 4;
                 preStateNum = stateNum;
-                preReact = -1;
+                preReact = 0;
 
                 for(int j = 0; j < script[roomIndex][stateIndex].length; j += 2) {
                     String[] keyword = script[roomIndex][stateIndex][j].split(" ");
@@ -452,7 +452,7 @@ public class FiniteStateMachine {
                 //set pre state
                 preRoomNum = 5;
                 preStateNum = stateNum;
-                preReact = -1;
+                preReact = 0;
 
                 for(int j = 0; j < script[roomIndex][stateIndex].length; j += 2) {
                     String[] keyword = script[roomIndex][stateIndex][j].split(" ");
