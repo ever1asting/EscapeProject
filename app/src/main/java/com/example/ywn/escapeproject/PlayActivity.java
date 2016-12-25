@@ -69,7 +69,7 @@ public class PlayActivity extends Activity implements View.OnClickListener {
         bitmap = BitmapFactory.decodeResource(getResources(), mainImgPath, options);
         mainWin = (ImageView) findViewById(R.id.playImage);
         mainWin.setImageDrawable(new RoundImageDrawable(bitmap));
-        mainWin.setClickable(false);
+
 
 
         // button and textline init
@@ -88,12 +88,12 @@ public class PlayActivity extends Activity implements View.OnClickListener {
             btn_click.setVisibility(View.VISIBLE);
         }
 
-        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=584962eb");
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=585f3ad3");//=584962eb");
 
         btn_click.setOnClickListener(this);
         backBtn.setOnClickListener(this);
         mainWin.setOnClickListener(this);
-
+        mainWin.setClickable(false);
     }
 
     @Override

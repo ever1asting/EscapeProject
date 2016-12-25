@@ -20,18 +20,18 @@ public class FiniteStateMachine {
                     /* state 1 */
                     {},
                     /* state 2 */
-                    {"forward forwards ahead front", "Ok...seems a good path."},
+                    {"straight forward forwards ahead front", "Ok...seems a good path."},
                     /* state 3 */
                     {"right", "Ok...Um, there seems to be obstacles. Shall we try other direction?",
                     "left", "Ok...seems a good path."},
                     /* state 4 */
-                    {"forward forwards ahead front right", "Ok...seems a good path."},
+                    {"straight forward forwards ahead front right", "Ok...seems a good path."},
                     /* state 5 */
-                    {"forward forwards ahead front", "Ok...seems a good path. Switch seems to be here... Shall I turn on the light?"},
+                    {"straight forward forwards ahead front", "Ok...seems a good path. Switch seems to be here... Shall I turn on the light?"},
                     /* state 6 */
-                    {"yes ok turn light switch", "Ok, I will try to turn on the light. A door here, shall I open it?"},
+                    {"yes ok okay turn light switch", "Ok, I will try to turn on the light. A door here, shall I open it?"},
                     /* state 7 */
-                    {"yes ok open door", "Ok, next room"},
+                    {"yes ok okay open door", "Ok, next room"},
                     /* state 8 */
                     {"open door", "Ok, back to ROOM 2"}
             },
@@ -86,7 +86,7 @@ public class FiniteStateMachine {
                     {},
                     /* state 2 */
                     {"open+four open+fourth door+four door+fourth", "BAD END: The girl was attacked by the zombie.",
-                    "open+three open+third door+three door+third", "I think we can get some ideas in ROOM 2."},
+                    "back open+three open+third door+three door+third", "I think we can get some ideas in ROOM 2."},
 
             },
             /****************  ROOM 3  ******************/
@@ -116,23 +116,23 @@ public class FiniteStateMachine {
                     {"cloth clothes hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
                     "mirror", "A dirty mirror here. Can see anything in it before clean it.",
                     "down downstairs", "Why to ROOM 2, we have just come from there.",
-                    "escape leave", "BAD END. Single escape."},
+                    "go+out escape leave", "BAD END. Single escape."},
                     /* state 4 */
                     {"cloth clothes hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
                     "mirror clean", "Clean it? Um... Ok",
                      "down downstairs", "Why to ROOM 2, we have just come from there.",
-                     "escape leave", "BAD END. Single escape."},
+                     "go+out escape leave", "BAD END. Single escape."},
                     /* state 5 */
                     {"cloth clothes hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
                     "mirror clean", "I had clean it.",
                     "down downstairs", "Why to ROOM 2, we have just come from there.",
-                    "escape leave", "BAD END. Single escape.",
+                    "go+out escape leave", "BAD END. Single escape.",
                     "curtain curtains", "Story time...."},
                     /* state 6 */
                     {"cloth clothes hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
                     "mirror clean", "I had clean it.",
                     "down downstairs", "Why to ROOM 2, we have just come from there.",
-                    "escape leave", "HAPPY END.",
+                    "go+out escape leave", "HAPPY END.",
                     "curtain curtains", "I had drawn it."},
                     /* state 7 */
                     {},
@@ -144,13 +144,13 @@ public class FiniteStateMachine {
                     {"cloth clothes hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
                     "mirror clean", "I had clean it",
                     "down downstairs", "Why to ROOM 2, we have just come from there.",
-                    "escape leave", "Escape? Where to escape?",
+                    "go+out escape leave", "Escape? Where to escape?",
                     "curtain curtains", "Story time......"},
                     /* state 10 */
                     {"cloth clothes hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
                      "mirror clean", "I had clean it",
                      "down downstairs", "Why to ROOM 2, we have just come from there.",
-                    "escape leave", "Escape? Where to escape?",
+                    "go+out escape leave", "Escape? Where to escape?",
                     "curtain curtains", "I had drawn it."},
                     /* state 11 */
                     {}
@@ -252,7 +252,7 @@ public class FiniteStateMachine {
 
                                 Log.v("1-8 bug", "preRoomNum = %d, preStateNum = %d, preReact = %d."+ preRoomNum+"," +preStateNum+","+ preReact);
 
-                                return " state = " + stateNum + ", " +  " " + script[roomIndex][stateIndex][j + 1];
+                                return /*" state = " + stateNum + ", " + */ " " + script[roomIndex][stateIndex][j + 1];
                             }
                         }
                     }
@@ -338,7 +338,7 @@ public class FiniteStateMachine {
                                 }
                             }
 
-                            return " state = " + stateNum + ", " +  " " + script[roomIndex][stateIndex][j + 1];
+                            return /*" state = " + stateNum + ", " +*/  " " + script[roomIndex][stateIndex][j + 1];
                         }
                     }
                 }
@@ -450,7 +450,7 @@ public class FiniteStateMachine {
                                 default: break;
                             }
 
-                            return " state = " + stateNum + ", " +  " " + script[roomIndex][stateIndex][j + 1];
+                            return /*" state = " + stateNum + ", " +*/  " " + script[roomIndex][stateIndex][j + 1];
                         }
                     }
                 }
@@ -528,7 +528,7 @@ public class FiniteStateMachine {
                                 default: break;
                             }
 
-                            return " state = " + stateNum + ", " +  " " + script[roomIndex][stateIndex][j + 1];
+                            return /*" state = " + stateNum + ", " +*/  " " + script[roomIndex][stateIndex][j + 1];
                         }
                     }
                 }
@@ -537,7 +537,7 @@ public class FiniteStateMachine {
         }
 
 
-        return "\n update : " + " state = " + stateNum + ", " + retStr;
+        return "\n"/*+" update : " + " state = " + stateNum + ", "*/ + retStr;
     }
 
 }
