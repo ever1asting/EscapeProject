@@ -139,7 +139,7 @@ public class PlayActivity extends Activity implements View.OnClickListener {
             //mResultText.append(text);
 
             //update fsm
-            String fsmRet = text + fsm.update(text);
+            String fsmRet = fsm.update(text);
             mResultText.start(fsmRet);
 
             //show action

@@ -537,7 +537,7 @@ public class FiniteStateMachine {
         }
 
 
-        return "\n update : " + " state = " + stateNum + ", " + retStr;
+        return retStr;
     }
 
 }
