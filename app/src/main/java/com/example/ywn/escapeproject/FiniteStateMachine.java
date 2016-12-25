@@ -111,27 +111,27 @@ public class FiniteStateMachine {
                     /* state 2 */
                     {"cloth clothes hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
                     "mirror", "A dirty mirror here. Can see anything in it before clean it.",
-                    "down downstairs", "Back to ROOM 2"},
+                    "down downstairs", "Why to ROOM 2, we have just come from there."},
                     /* state 3 */
                     {"cloth clothes hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
                     "mirror", "A dirty mirror here. Can see anything in it before clean it.",
-                    "down downstairs", "Back to ROOM 2",
+                    "down downstairs", "Why to ROOM 2, we have just come from there.",
                     "escape leave", "BAD END. Single escape."},
                     /* state 4 */
                     {"cloth clothes hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
                     "mirror clean", "Clean it? Um... Ok",
-                     "down downstairs", "Back to ROOM 2",
+                     "down downstairs", "Why to ROOM 2, we have just come from there.",
                      "escape leave", "BAD END. Single escape."},
                     /* state 5 */
                     {"cloth clothes hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
                     "mirror clean", "I had clean it.",
-                    "down downstairs", "Back to ROOM 2",
+                    "down downstairs", "Why to ROOM 2, we have just come from there.",
                     "escape leave", "BAD END. Single escape.",
                     "curtain curtains", "Story time...."},
                     /* state 6 */
                     {"cloth clothes hole obstacle", "A hole here after move the obstales, I think I can escape from this hole.",
                     "mirror clean", "I had clean it.",
-                    "down downstairs", "Back to ROOM 2",
+                    "down downstairs", "Why to ROOM 2, we have just come from there.",
                     "escape leave", "HAPPY END.",
                     "curtain curtains", "I had drawn it."},
                     /* state 7 */
@@ -139,19 +139,19 @@ public class FiniteStateMachine {
                     /* state 8 */
                     {"cloth clothes hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
                     "mirror clean", "Clean it? Um... Ok",
-                     "down downstairs", "Back to ROOM 2"},
+                     "down downstairs", "Why to ROOM 2, we have just come from there."},
                     /* state 9 */
                     {"cloth clothes hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
                     "mirror clean", "I had clean it",
-                    "down downstairs", "Back to ROOM 2",
+                    "down downstairs", "Why to ROOM 2, we have just come from there.",
                     "escape leave", "Escape? Where to escape?",
                     "curtain curtains", "Story time......"},
                     /* state 10 */
                     {"cloth clothes hole obstacle", "Obstacle here...(try to remove it). Oh, A hole here, I think I can escape from this hole.",
                      "mirror clean", "I had clean it",
-                     "down downstairs", "Back to ROOM 2",
+                     "down downstairs", "Why to ROOM 2, we have just come from there.",
                     "escape leave", "Escape? Where to escape?",
-                    "curtain curtains", "Story time......"},
+                    "curtain curtains", "I had drawn it."},
                     /* state 11 */
                     {}
             }
@@ -516,7 +516,8 @@ public class FiniteStateMachine {
                                     else if(stateNum == 3 || stateNum == 4 || stateNum == 8)
                                         ++stateNum;
                                     break;
-                                case 2: preStateOfRoom4 = stateNum; roomNum = 2; stateNum = 8; break;
+                                case 2:
+                                    break;
                                 case 3:
                                     stateNum = (stateNum == 6)? 11: 7;
                                     break;
