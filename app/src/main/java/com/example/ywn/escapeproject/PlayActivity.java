@@ -168,8 +168,24 @@ public class PlayActivity extends Activity implements View.OnClickListener {
                 btn_click.setVisibility(View.INVISIBLE);
             }
 
-            //if bad end
+            //if bad end 1
             if (fsmState[0] == 2 && fsmState[1] == 6) {
+                //mResultText.setText(R.string.BEInfo);
+                btn_click.setVisibility(View.INVISIBLE);
+                backBtn.setVisibility(View.INVISIBLE);
+                mainWin.setClickable(true);
+            }
+
+            //if bad end 2
+            if (fsmState[0] == 5 && fsmState[1] == 7) {
+                //mResultText.setText(R.string.BEInfo);
+                btn_click.setVisibility(View.INVISIBLE);
+                backBtn.setVisibility(View.INVISIBLE);
+                mainWin.setClickable(true);
+            }
+
+            //if happy end
+            if (fsmState[0] == 5 && fsmState[1] == 11) {
                 //mResultText.setText(R.string.BEInfo);
                 btn_click.setVisibility(View.INVISIBLE);
                 backBtn.setVisibility(View.INVISIBLE);
